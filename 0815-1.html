@@ -9,15 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutrals & Subtle Blues -->
-    <!-- Application Structure Plan: The SPA is designed around a central "Polylith" concept, presenting Dr. Liao's multifaceted identity not as separate careers but as interconnected facets of a whole. The structure is thematic, not chronological. A top navigation bar allows users to jump to key facets: The Physician, The Innovator, The Entrepreneur, and The Philosopher. Each section uses a combination of interactive timelines, toggle-able content cards, and a central skills visualization to provide a non-linear exploration experience. This structure was chosen because a simple timeline cannot capture the synergy between his roles. The goal is for users to understand how his clinical expertise informed his AI innovations and how his entrepreneurial ventures funded his risk-taking in medicine. -->
-    <!-- Visualization & Content Choices: 
-        - Career Timeline (HTML/CSS/JS): Goal: Show change/progression. Method: An interactive vertical timeline. Interaction: Clicking on a milestone reveals detailed information in a modal-like view. Justification: More engaging than a static list and allows for progressive disclosure of information.
-        - Skills Radar Chart (Chart.js/Canvas): Goal: Organize/Compare complex skill sets. Method: A radar chart visualizing the balance between his clinical, research, management, and entrepreneurial skills. Interaction: Hovering over points shows skill details. Justification: A radar chart is the best way to visually represent a multi-talented individual's balanced yet diverse capabilities, reinforcing the "Polylith" concept.
-        - Role-based Content Cards (HTML/CSS/JS): Goal: Inform/Organize. Method: Clickable cards for each major role (Physician, Innovator, etc.). Interaction: Clicking a card expands to show key achievements and philosophies related to that role. Justification: This allows users to focus on the area that interests them most, supporting self-directed exploration.
-        - Quote Sliders (HTML/CSS/JS): Goal: Inform/Engage. Method: A simple carousel for his key philosophical quotes. Interaction: Auto-plays and manual navigation. Justification: Highlights his core beliefs in a dynamic, easily digestible format.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Noto Sans TC', sans-serif;
@@ -92,6 +83,7 @@
                 <a href="#innovator" class="nav-btn">人本科技家</a>
                 <a href="#entrepreneur" class="nav-btn">跨界企業家</a>
                 <a href="#philosopher" class="nav-btn">核心哲學</a>
+                <a href="0815-2.html" class="nav-btn font-bold text-teal-600">能力藍圖</a>
             </div>
             <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
                 <span class="text-3xl">☰</span>
@@ -103,6 +95,7 @@
             <a href="#innovator" class="block py-2 text-center text-gray-700 hover:bg-blue-50 rounded">人本科技家</a>
             <a href="#entrepreneur" class="block py-2 text-center text-gray-700 hover:bg-blue-50 rounded">跨界企業家</a>
             <a href="#philosopher" class="block py-2 text-center text-gray-700 hover:bg-blue-50 rounded">核心哲學</a>
+            <a href="0815-2.html" class="block py-2 text-center text-teal-600 font-bold hover:bg-teal-50 rounded">能力藍圖</a>
         </div>
     </header>
 
@@ -236,11 +229,9 @@
             <h2 class="text-3xl font-bold text-center mb-12">核心哲學：有溫度的堅持</h2>
             <div class="max-w-3xl mx-auto text-center">
                 <div id="quote-container" class="relative h-48">
-                    <!-- Quotes will be injected here by JS -->
-                </div>
+                    </div>
                 <div class="flex justify-center mt-4 space-x-2" id="quote-dots">
-                    <!-- Dots will be injected here by JS -->
-                </div>
+                    </div>
             </div>
         </section>
 
@@ -271,6 +262,14 @@
                 link.addEventListener('click', function (e) {
                     e.preventDefault();
                     let targetId = this.getAttribute('href');
+                    
+                    // === 修改：如果不是錨點連結，就不阻止預設行為 ===
+                    if (!targetId || targetId === '#') return;
+                    if (!targetId.startsWith('#')) {
+                        window.location.href = targetId;
+                        return;
+                    }
+
                     let targetElement = document.querySelector(targetId);
                     if (targetElement) {
                         window.scrollTo({
@@ -294,9 +293,11 @@
                 });
 
                 navBtns.forEach(btn => {
-                    btn.classList.remove('active');
-                    if (btn.getAttribute('href') === `#${current}`) {
-                        btn.classList.add('active');
+                    if (btn.href.includes('#')) { // 只處理錨點連結
+                        btn.classList.remove('active');
+                        if (btn.getAttribute('href') === `#${current}`) {
+                            btn.classList.add('active');
+                        }
                     }
                 });
             });
