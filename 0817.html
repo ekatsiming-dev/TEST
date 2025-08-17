@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>面試作戰室</title>
+    <title>聖凱的面試作戰室：與廖醫師的思維對齊</title>
     <style>
+        html {
+            /* Smooth scrolling for anchor links */
+            scroll-behavior: smooth;
+        }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             line-height: 1.8;
@@ -31,15 +35,19 @@
             margin: 0;
             font-size: 2em;
         }
+        /* Default Nav for Desktop */
         nav {
             background-color: #34495e;
             padding: 15px 0;
             text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         nav a {
             color: #ffffff;
             text-decoration: none;
-            margin: 0 15px;
+            margin: 5px 15px;
             font-weight: 500;
             transition: color 0.3s;
         }
@@ -87,12 +95,69 @@
         .stress-test li {
             background-color: #fbe9e7;
             border-color: #ffccbc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .stress-test .answer {
+            background-color: #ffffff;
+            border-top: 2px solid #e0e0e0;
+            margin-top: 15px;
+            padding: 15px 10px;
+            font-style: normal;
+            color: #555;
+        }
+        .stress-test .answer ol {
+            list-style-position: inside;
+            background-color: #fff0f0;
+            border: 1px solid #ffdddde6;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 10px 0 0 0;
+        }
+        .stress-test .answer ol li {
+            background-color: transparent;
+            border: none;
+            padding: 5px 0;
+            margin-bottom: 5px;
         }
         footer {
             text-align: center;
             padding: 20px;
             font-size: 0.9em;
             color: #777;
+        }
+
+        /* Mobile Optimization: Fixed Bottom Nav */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                /* Add space at the bottom to avoid content being hidden by the nav */
+                padding-bottom: 80px; 
+            }
+            .container {
+                border-radius: 0;
+            }
+            nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background-color: #2c3e50; /* Match header for consistency */
+                padding: 10px 5px;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+                z-index: 1000;
+                border-top: 1px solid #34495e;
+            }
+            nav a {
+                font-size: 0.8em; /* Smaller text for mobile */
+                margin: 5px;
+            }
+            .content-section {
+                padding: 25px 20px;
+            }
+            header h1 {
+                font-size: 1.5em;
+            }
         }
     </style>
 </head>
@@ -106,18 +171,20 @@
 
         <nav>
             <a href="#opening">開場定位</a>
-            <a href="#story">核心成就故事</a>
-            <a href="#impact">系統影響圖</a>
-            <a href="#mvp">最小可行方案</a>
-            <a href="#stress-test">壓力測試問題集</a>
+            <a href="#story">核心故事</a>
+            <a href="#impact">系統影響</a>
+            <a href="#mvp">第一貢獻</a>
+            <a href="#stress-test">壓力測試</a>
+            <a href="#success-formula">成功方程式</a>
             <a href="#emergency-kit">情緒急救包</a>
         </nav>
 
         <div id="opening" class="content-section">
-            <h2>#開場定位：您的「電梯簡報」</h2>
-            <p><strong>目標：</strong>在一分鐘內，將自己定位為「能解決系統性問題的價值創造者」。</p>
+            <h2>#開場定位：您的「電梯簡報」(最終版)</h2>
+            <p><strong>目標：</strong>精準傳達您「系統思維」與「負責任傳承」的核心價值。</p>
             <blockquote>
-                「廖醫師您好，我是黃聖凱。過去在臨床與行政的多元歷練中，我發現自己最大的熱情，在於**運用數據，去解決第一線同仁在流程中遇到的實際痛點。** 我擅長將冰冷的數據，轉化為有溫度的洞見，並以此為槓桿，推動能提升團隊效率與病人安全的系統性改變。我相信，真正的管理，是透過賦能他人來創造價值，這也是我希望能加入您團隊的主要原因。」
+                <p>「廖醫師您好，我是黃聖凱。過去的經驗讓我相信，解決問題的關鍵，不只在於技術，更在於建構一個<strong>能讓團隊順暢運作的系統</strong>。」</p>
+                <p>「我擅長從流程中找出痛點，並習慣為經手的每個專案，都打造一套<strong>就算我不在，也能無痛交接</strong>的永續方案。這份對系統與傳承的堅持，是我希望能帶來的價值。」</p>
             </blockquote>
         </div>
 
@@ -156,26 +223,77 @@
         </div>
 
         <div id="mvp" class="content-section">
-            <h2>#最小可行方案：您的「見面禮」</h2>
-            <p><strong>目標：</strong>證明您是「捲起袖子就能動工」的務實行動派。</p>
+            <h2>#最小可行方案：您的第一貢獻</h2>
+            <p><strong>目標：</strong>證明您是「先精通再改善」的穩健系統思考者。</p>
             <blockquote>
-                「如果我有幸加入團隊，在第一個月，我會先花一到兩週的時間，去傾聽與觀察團隊成員的日常工作，特別是那些**重複性高、耗時、且價值感低**的報表製作或資料整理環節。
+                「如果我有幸加入團隊，我的首要任務，是讓自己先成為團隊的助力，而不是急於改變的變數。我相信，<strong>任何有意義的改善，都源自於對現況的深度理解與尊重。</strong>
                 <br><br>
-                我的第一個目標，是鎖定其中一項『微小但惱人』的痛點，例如一份需要每日手動彙整的行政報表。我會運用Power Automate或Excel VBA，將它自動化。
+                因此，在初期，我會專注於學習與融入，先從業務本身學起，讓自己能熟練地完成團隊的日常工作。在這個過程中，我會特別去觀察與記錄那些重複性高、耗時、且需要大量人工核對的環節。
                 <br><br>
-                這份『見面禮』雖然小，但它能立刻為團隊每天節省下30分鐘到1小時的時間，更重要的是，它能向團隊證明，**我的到來，是為了讓大家的工作變得更輕鬆、更有價值。**」
+                當我對業務有足夠的掌握後，我會選擇一個切入點，但在提出任何方案前，我會先去<strong>理解這個改變可能影響到的所有利害關係人</strong>，確保我的方案不會為了解決A的問題，而製造出B的問題。
+                <br><br>
+                我的目標是，讓我的第一個貢獻，是一個經過深思熟慮、能真正為團隊減輕負擔、提升價值的永續方案。我相信，<strong>最快的路，往往是那條走得最穩的路。</strong>」
             </blockquote>
         </div>
 
         <div id="stress-test" class="content-section">
-            <h2>#壓力測試問題集 (我為您新增的)</h2>
+            <h2>#壓力測試問題集 (附回答框架)</h2>
             <p><strong>目標：</strong>提前準備，從容應對尖銳提問。</p>
             <ul class="stress-test">
-                <li><strong>問題1：「你的故事很感人，但我怎麼知道，你在面對艱難的管理決策時，不會因為過於『重感情』而影響專業判斷？」</strong></li>
-                <li><strong>問題2：「Power BI 這類工具變化很快，你如何確保自己的能力不會在三五年後就過時？」</strong></li>
-                <li><strong>問題3：「你提到流程改善，但如果你的改善方案，需要其他資深同事改變他們數十年的工作習慣，你認為你有能力推動嗎？」</strong></li>
-                <li><strong>問題4：「從你的履歷來看，你的專長在於『執行』。你認為你具備從零到一，獨立『規劃』一個大型專案的策略能力嗎？」</strong></li>
+                <li>
+                    <strong>問題1：「你的故事很感人，但我怎麼知道，你在面對艱難的管理決策時，不會因為過於『重感情』而影響專業判斷？」</strong>
+                    <div class="answer">
+                        <p><strong>回答框架：</strong></p>
+                        <p>「這是我在管理實務中持續學習的核心課題：如何在『關懷人性』與『堅持原則』之間取得平衡。我的核心原則是：<strong>管理的目標是追求長期的『共好』，而非短期的『討好』</strong>。」</p>
+                        <p>「我常用一個臨床比喻提醒自己：為嬰兒打疫苗。我們同理孩子當下的哭鬧，但絕不猶豫，因為專業判斷告訴我們，這份短暫的不適是為了換取長遠的保護。這就是凌駕於同理心之上的『正確的事』。」</p>
+                        <p>「所以，面對抱怨，我的流程是：先同理，再處理；再分析，找共識。因此，『重感情』對我而言，不是阻礙，而是我用來<strong>收集真實數據、洞察問題根源的『雷達』</strong>，讓我做出的決策更周全。」</p>
+                    </div>
+                </li>
+                <li>
+                    <strong>問題2：「Power BI 這類工具變化很快，你如何確保自己的能力不會在三五年後就過時？」</strong>
+                    <div class="answer">
+                        <p><strong>回答框架：</strong></p>
+                        <p>「您說的沒錯，所以我從不將自己的價值完全綁定在任何單一工具上。對我來說，工具是『術』，而真正不會過時的，是解決問題的『道』，也就是我的思維模型。」</p>
+                        <p>「我的思維模型包含三步驟：</p>
+                        <ol>
+                            <li><strong>定義核心問題：</strong>穿透表面，找到問題的真正根源。</li>
+                            <li><strong>建構解決路徑：</strong>設計一套系統性的行動方案。</li>
+                            <li><strong>驅動數據驗證：</strong>確保方案的成效是可衡量、可證明的。</li>
+                        </ol>
+                        <p>這套模型讓我能快速掌握任何新工具的本質。工具的更迭對我來說，不是威脅，而是讓我能用更強大的武器，去解決更複雜問題的機會。」</p>
+                    </div>
+                </li>
+                <li>
+                    <strong>問題3：「你提到流程改善，但如果你的改善方案，需要其他資深同事改變他們數十年的工作習慣，你認為你有能力推動嗎？」</strong>
+                     <div class="answer">
+                        <p><strong>回答框架：</strong></p>
+                        <p>「這個問題正是我目前工作中，最深刻的學習課題。我認為，要推動資深同事改變，『能力』不是最重要的，<strong>『智慧』與『同理心』</strong>才是。我從實戰中學到，抗拒改變往往源於對未知的焦慮與一份想把事情做好的責任感。」</p>
+                        <p>「我的做法是先成為『偵察兵』，先融入傾聽，理解他們真正在意的痛點。我曾推動一個流程自動化，卻發現同事因流程中的『不確定性』而抗拒，這讓我學到，他們的抗拒其實源於專業與責任感。」</p>
+                        <p>「這次經驗，讓我總結出推動改善的三原則：<strong>讓對方成為主角</strong>、<strong>從『共同解決問題』開始</strong>、以及<strong>創造『無痛的平行測試』</strong>。因此，我擁有的不是強硬的『推動力』，而是一種更柔軟、也更堅韌的<strong>『促進力』</strong>，能將最資深的同事，從變革的阻力，轉化為最有力的盟友。」</p>
+                    </div>
+                </li>
+                 <li>
+                    <strong>問題4：「從你的履歷來看，你的專長在於『執行』。你認為你具備從零到一，獨立『規劃』一個大型專案的策略能力嗎？」</strong>
+                     <div class="answer">
+                        <p><strong>回答框架：</strong></p>
+                        <p>「我的履歷確實更多呈現執行成果，但我相信，<strong>正是因為我親身走過了從零到一的每一步，才讓我對『規劃』的理解，超越了紙上的藍圖。</strong>」</p>
+                        <p>「我從過去『傷痕累累』的經驗中學到，一個不懂得保護團隊精力的規劃，本身就是失敗的規劃。因此，我發展出自己的『永續專案規劃法』：<strong>定義『最小成功』而非完美藍圖</strong>、<strong>規劃『精力預算』而非只有時間</strong>、以及<strong>建立『慶功節點』而非只有終點線</strong>。」</p>
+                        <p>「最重要的是，坦白說，正是那份『孤軍奮戰』的疲憊感，反而激發了我最強的責任感：我告訴自己，我走的每一步，都要思考如何讓下一位接手的人，走得比我更輕鬆。因此，為專案建立無痛接手的流程資料，對我來說不只是一個SOP，更是一種內建的堅持。這證明我的規劃能力，不僅是關於事，更是關於<strong>人</strong>與<strong>系統</strong>，是一種能確保團隊能健康地、持續地走向成功的策略能力。」</p>
+                    </div>
+                </li>
             </ul>
+        </div>
+
+        <div id="success-formula" class="content-section">
+            <h2>#專案成功方程式：我的期待</h2>
+            <p><strong>用途：</strong>當被問及「對團隊的期待」或「成功的定義」時，用以闡述您的專業洞見，並設立健康的合作界線。</p>
+            <blockquote>
+                <p>「我過去在數次從零到一的專案中，最大的學習是：<strong>一個專案要能真正成功且永續，除了負責人的投入，更需要三根穩固的支柱。</strong>」</p>
+                <p>「第一，是<strong>來自高層明確的策略支持</strong>，這能確保我們走在正確的方向上。」</p>
+                <p>「第二，是<strong>團隊內部充分的資源與賦能</strong>，讓執行者有足夠的工具去完成任務。」</p>
+                <p>「第三，也是最重要的，是<strong>願意開放溝通、共同解決問題的協作文化</strong>。」</p>
+                <p>「因此，我期待能加入一個重視這三根支柱的團隊。因為我的經驗告訴我，當這些條件具備時，團隊的能量才能完全釋放，而我過去累積的所有專案能力，也才能發揮最大的價值。」</p>
+            </blockquote>
         </div>
 
         <div id="emergency-kit" class="content-section">
