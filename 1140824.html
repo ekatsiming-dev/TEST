@@ -14,8 +14,8 @@
     <!-- Visualization & Content Choices: 
         - Key Metrics (Overall Comparison): Report Info -> Quality of life factors. Goal -> Inform. Viz -> Interactive Radar Chart (Chart.js) with unified positive indicators, with data now reflecting the specific role's context. Justification -> A radar chart remains the best tool for an at-a-glance multivariate comparison of life quality.
         - Salary Deep Dive: Report Info -> Medical admin salary by experience. Goal -> Compare. Viz -> Grouped Bar Chart (Chart.js) showing salary progression by years of experience. Interaction -> Hovering reveals precise salary figures. Justification -> This is a more focused and powerful comparison than the previous general salary chart. It directly answers how career progression differs financially.
-        - Purchasing Power Case Study: Report Info -> Cost of living, now analyzed with "Financial Breathing Room" and "Daily Latte Power" indices, including explicit currency conversions. Goal -> Synthesize. Viz -> Dynamic HTML content blocks with the new, more meaningful metrics. Justification -> These new indices provide a much more accurate and relatable picture of purchasing power, separating survival needs from quality-of-life measures and daily work value.
-        - Work-Life Balance: Report Info -> General working hours and leave. Goal -> Compare. Viz -> Retained the key stats and stacked bar chart. Justification -> While these are national stats, they are directly applicable to an office-based role like a medical admin and provide crucial context for the "Work-Life Balance" aspect.
+        - Purchasing Power Case Study: Report Info -> Cost of living, now analyzed with "Financial Breathing Room" and "Daily Latte Power" indices, with all currencies converted to TWD for direct comparison. Goal -> Synthesize. Viz -> Dynamic HTML content blocks with the new, more meaningful metrics. Justification -> These new indices provide a much more accurate and relatable picture of purchasing power, separating survival needs from quality-of-life measures and daily work value.
+        - Work-Life Balance: Report Info -> General working hours and leave, now featuring the "Annual Overtime Month" metaphor with explicit calculation steps. Goal -> Compare. Viz -> Retained the key stats and stacked bar chart, but added a prominent callout card for the work-hour difference. Justification -> This metaphor is a powerful narrative device that makes the abstract number of hours tangible and impactful.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
@@ -88,9 +88,9 @@
                                 <div>
                                     <h4 class="font-bold text-lg mb-2">🇹🇼 台灣 (台北)</h4>
                                     <p class="text-2xl font-bold text-[#6D5D53] mb-2">平均日薪 NT$ 1,974</p>
-                                    <p class="text-sm text-gray-500">(約 € 56)</p>
                                     <hr class="my-4">
-                                    <p class="text-base mb-1">月薪 NT$ 38,000 - 開銷 NT$ 30,000</p>
+                                    <p class="text-base mb-1">月薪 NT$ 38,000</p>
+                                    <p class="text-base mb-1">- 基本開銷 NT$ 30,000</p>
                                     <p class="text-base mb-1">= 月可支配所得: <span class="font-semibold text-red-500">NT$ 8,000</span></p>
                                 </div>
                                 <div class="mt-4 pt-4 border-t border-gray-300 space-y-4">
@@ -107,11 +107,12 @@
                             <div class="p-6 bg-[#F9F6F2] rounded-lg flex flex-col justify-between">
                                 <div>
                                     <h4 class="font-bold text-lg mb-2">🇪🇸 西班牙 (馬德里)</h4>
-                                     <p class="text-2xl font-bold text-[#6D5D53] mb-2">平均日薪 € 89.7</p>
-                                     <p class="text-sm text-gray-500">(約 NT$ 3,140)</p>
+                                     <p class="text-2xl font-bold text-[#6D5D53] mb-2">平均日薪 NT$ 3,140</p>
+                                     <p class="text-sm text-gray-500">(約 € 89.7)</p>
                                     <hr class="my-4">
-                                    <p class="text-base mb-1">月薪 € 1,600 - 開銷 € 1,040</p>
-                                    <p class="text-base mb-1">= 月可支配所得: <span class="font-semibold text-green-600">€ 560</span></p>
+                                    <p class="text-base mb-1">月薪 NT$ 56,000 (約 € 1,600)</p>
+                                    <p class="text-base mb-1">- 基本開銷 NT$ 36,400 (約 € 1,040)</p>
+                                    <p class="text-base mb-1">= 月可支配所得: <span class="font-semibold text-green-600">NT$ 19,600</span></p>
                                 </div>
                                 <div class="mt-4 pt-4 border-t border-gray-300 space-y-4">
                                     <div>
@@ -133,20 +134,13 @@
             <section id="section-worklife" class="mb-16">
                 <h2 class="text-2xl font-bold text-center text-[#6D5D53] mb-8">工時與休假權益</h2>
                 <div class="w-full max-w-4xl mx-auto p-6 bg-white rounded-2xl shadow-lg">
-                    <p class="text-center text-gray-600 mb-6">雖然以下為全國性的勞動數據，但對於作為辦公室職員的行政人員而言，這些指標直接影響其工作與生活的平衡。兩地在法定工時與休假天數上存在根本性的差異，這反映了兩種社會對勞動者休息權的不同價值觀。</p>
+                    <p class="text-center text-gray-600 mb-6">時間，是最公平也最寶貴的資源。本節將抽象的「年總工時」轉化為具體的生活體驗，揭示兩種社會對勞動者時間價值的不同看法。</p>
                     <div class="grid md:grid-cols-2 gap-8 items-center">
-                        <div>
-                            <h3 class="text-xl font-bold text-center text-[#A88B79] mb-4">年度總工時</h3>
-                            <div class="flex flex-col items-center text-center space-y-4">
-                                <div class="p-4">
-                                    <p class="text-4xl font-bold text-[#6D5D53]">2,030</p>
-                                    <p class="text-gray-600">小時 (台灣)</p>
-                                </div>
-                                <div class="p-4">
-                                    <p class="text-4xl font-bold text-[#A88B79]">~1,800</p>
-                                    <p class="text-gray-600">小時 (西班牙)</p>
-                                </div>
-                            </div>
+                        <div class="p-6 bg-[#F9F6F2] rounded-lg text-center">
+                            <h3 class="text-xl font-bold text-[#A88B79] mb-4">年度加班月</h3>
+                            <p class="text-gray-700">台灣年總工時 <span class="font-bold text-gray-800">2,030</span> 小時，西班牙約 <span class="font-bold text-gray-800">1,800</span> 小時，相差約 <span class="font-bold text-2xl text-red-500">230</span> 小時。</p>
+                            <p class="text-gray-700 mt-2">以每日8小時計算，相當於...</p>
+                            <p class="mt-4 text-3xl md:text-4xl font-bold text-[#6D5D53]">每年多上<span class="text-red-500">整整一個月</span>的班</p>
                         </div>
                         <div>
                             <h3 class="text-xl font-bold text-center text-[#A88B79] mb-4">年度總休假天數 (一年資歷)</h3>
@@ -270,7 +264,7 @@
                         borderWidth: 1
                     }, {
                         label: '西班牙 (月薪 NT$)',
-                        data: [44000, 55600, 72800],
+                        data: [44000, 56000, 72800],
                         backgroundColor: SPAIN_COLOR,
                         borderColor: SPAIN_BORDER_COLOR,
                         borderWidth: 1
