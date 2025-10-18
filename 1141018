@@ -1,0 +1,207 @@
+<div style="text-align: center; font-weight: bold; font-size: 20pt; margin-bottom: 10px;">
+  奇美醫學中心一般醫學訓練師資培育計劃<br>
+
+
+  學員對完訓教師教學評估滿意度調查
+</div>
+
+<!-- 加入這一段空白行 -->
+<div style="height: 20px;"></div>
+
+<table style="width: 100%; font-size: 12pt; margin-bottom: 20px;">
+  <tr>
+    <td style="width: 50%;">評估日期：@{outputs('取得項目')?['body/OData__x8ab2__x7a0b__x65e5__x671f_']}</td>
+    <td style="width: 50%;">評估者姓名：@{outputs('取得項目')?['body/OData__x53d7__x8a13__x6559__x5e2b_']}</td>
+    <td style="width: 50%;">被評估者教師姓名：@{outputs('取得項目')?['body/OData__x8ab2__x7a0b__x65e5__x671f_']}</td>
+  </tr>
+</table>
+
+<div style="font-size: 12pt; margin-bottom: 12px; line-height: 1.5;">
+問卷內容：本問卷旨在蒐集學員對教師在訓練期間之教學表現的意見與回饋，藉以評估教師在教學方法、互動引導、臨床指導等面向的表現。調查結果將作為教師教學精進及未來師資培訓的依據。
+</div>
+  <div style="margin-top: 8px;">
+    <strong>1.教學能力</strong>
+   </div>
+<table style="width: 100%; border-collapse: collapse; font-size: 16px; table-layout: fixed;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid black; text-align: center; width: 50%; padding: 8px;">詳核項目</th>
+      <th style="border: 1px solid black; text-align: center; width: 10%; padding: 8px;">非常<br>
+滿意</th>
+      <th style="border: 1px solid black; text-align: center; width: 10%; padding: 8px;">滿意</th>
+      <th style="border: 1px solid black; text-align: center; width: 10%; padding: 8px;">普通</th>
+      <th style="border: 1px solid black; text-align: center; width: 10%; padding: 8px;">不滿意</th>
+      <th style="border: 1px solid black; text-align: center; width: 10%; padding: 8px;">非常<br>
+不滿意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- 第1題 -->
+    <tr style="height: 45px;">
+      <td style="border: 1px solid black;">1.醫學知識說明</td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0031__x002e__x6574__x9ad4__x8a'], '非常滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0031__x002e__x6574__x9ad4__x8a'], '滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0031__x002e__x6574__x9ad4__x8a'], '普通'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0031__x002e__x6574__x9ad4__x8a'], '不滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0031__x002e__x6574__x9ad4__x8a'], '非常不滿意'), '■', '□')}</span></td>
+    </tr>
+
+    <!-- 第2題 -->
+    <tr style="height: 45px;">
+      <td style="border: 1px solid black;">2.有組織的教學方式</td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0032__x002e__x8ab2__x7a0b__x4e'], '非常滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0032__x002e__x8ab2__x7a0b__x4e'], '滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0032__x002e__x8ab2__x7a0b__x4e'], '普通'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0032__x002e__x8ab2__x7a0b__x4e'], '不滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0032__x002e__x8ab2__x7a0b__x4e'], '非常不滿意'), '■', '□')}</span></td>
+    </tr>
+
+    <!-- 第3題 -->
+    <tr style="height: 45px;">
+      <td style="border: 1px solid black;">3.運用臨床實例輔助說明</td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0033__x002e__x5404__x8b1b__x5e'], '非常滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0033__x002e__x5404__x8b1b__x5e'], '滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0033__x002e__x5404__x8b1b__x5e'], '普通'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0033__x002e__x5404__x8b1b__x5e'], '不滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0033__x002e__x5404__x8b1b__x5e'], '非常不滿意'), '■', '□')}</span></td>
+    </tr>
+
+    <!-- 第4題 -->
+    <tr style="height: 45px;">
+      <td style="border: 1px solid black;">4.條理分明的引導學員</td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0034__x002e__x8ab2__x7a0b__x66'], '非常滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0034__x002e__x8ab2__x7a0b__x66'], '滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0034__x002e__x8ab2__x7a0b__x66'], '普通'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0034__x002e__x8ab2__x7a0b__x66'], '不滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0034__x002e__x8ab2__x7a0b__x66'], '非常不滿意'), '■', '□')}</span></td>
+    </tr>
+
+    <!-- 第5題 -->
+    <tr style="height: 45px;">
+      <td style="border: 1px solid black;">5.善運用比喻等教學技巧</td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0035__x002e__x81ea__x8eab__x65'], '非常滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0035__x002e__x81ea__x8eab__x65'], '滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0035__x002e__x81ea__x8eab__x65'], '普通'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0035__x002e__x81ea__x8eab__x65'], '不滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0035__x002e__x81ea__x8eab__x65'], '非常不滿意'), '■', '□')}</span></td>
+    </tr>
+
+    <!-- 第6題 -->
+    <tr style="height: 45px;">
+      <td style="border: 1px solid black;">6.整體教學時間控制</td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0036__x002e__x6574__x9ad4__x8a'], '非常滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0036__x002e__x6574__x9ad4__x8a'], '滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0036__x002e__x6574__x9ad4__x8a'], '普通'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0036__x002e__x6574__x9ad4__x8a'], '不滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0036__x002e__x6574__x9ad4__x8a'], '非常不滿意'), '■', '□')}</span></td>
+    </tr>
+  </tbody>
+</table>
+  <div style="margin-top: 8px;">
+    <strong>1.教學能力</strong>
+   </div>
+<table style="width: 100%; border-collapse: collapse; font-size: 16px; table-layout: fixed;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid black; text-align: center; width: 50%; padding: 8px;">詳核項目</th>
+      <th style="border: 1px solid black; text-align: center; width: 10%; padding: 8px;">非常<br>
+滿意</th>
+      <th style="border: 1px solid black; text-align: center; width: 10%; padding: 8px;">滿意</th>
+      <th style="border: 1px solid black; text-align: center; width: 10%; padding: 8px;">普通</th>
+      <th style="border: 1px solid black; text-align: center; width: 10%; padding: 8px;">不滿意</th>
+      <th style="border: 1px solid black; text-align: center; width: 10%; padding: 8px;">非常<br>
+不滿意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- 第1題 -->
+    <tr style="height: 45px;">
+      <td style="border: 1px solid black;">1.醫學知識說明</td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0031__x002e__x6574__x9ad4__x8a'], '非常滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0031__x002e__x6574__x9ad4__x8a'], '滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0031__x002e__x6574__x9ad4__x8a'], '普通'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0031__x002e__x6574__x9ad4__x8a'], '不滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0031__x002e__x6574__x9ad4__x8a'], '非常不滿意'), '■', '□')}</span></td>
+    </tr>
+
+    <!-- 第2題 -->
+    <tr style="height: 45px;">
+      <td style="border: 1px solid black;">2.有組織的教學方式</td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0032__x002e__x8ab2__x7a0b__x4e'], '非常滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0032__x002e__x8ab2__x7a0b__x4e'], '滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0032__x002e__x8ab2__x7a0b__x4e'], '普通'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0032__x002e__x8ab2__x7a0b__x4e'], '不滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0032__x002e__x8ab2__x7a0b__x4e'], '非常不滿意'), '■', '□')}</span></td>
+    </tr>
+
+    <!-- 第3題 -->
+    <tr style="height: 45px;">
+      <td style="border: 1px solid black;">3.運用臨床實例輔助說明</td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0033__x002e__x5404__x8b1b__x5e'], '非常滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0033__x002e__x5404__x8b1b__x5e'], '滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0033__x002e__x5404__x8b1b__x5e'], '普通'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0033__x002e__x5404__x8b1b__x5e'], '不滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0033__x002e__x5404__x8b1b__x5e'], '非常不滿意'), '■', '□')}</span></td>
+    </tr>
+
+    <!-- 第4題 -->
+    <tr style="height: 45px;">
+      <td style="border: 1px solid black;">4.條理分明的引導學員</td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0034__x002e__x8ab2__x7a0b__x66'], '非常滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0034__x002e__x8ab2__x7a0b__x66'], '滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0034__x002e__x8ab2__x7a0b__x66'], '普通'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0034__x002e__x8ab2__x7a0b__x66'], '不滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0034__x002e__x8ab2__x7a0b__x66'], '非常不滿意'), '■', '□')}</span></td>
+    </tr>
+
+    <!-- 第5題 -->
+    <tr style="height: 45px;">
+      <td style="border: 1px solid black;">5.善運用比喻等教學技巧</td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0035__x002e__x81ea__x8eab__x65'], '非常滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0035__x002e__x81ea__x8eab__x65'], '滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0035__x002e__x81ea__x8eab__x65'], '普通'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0035__x002e__x81ea__x8eab__x65'], '不滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0035__x002e__x81ea__x8eab__x65'], '非常不滿意'), '■', '□')}</span></td>
+    </tr>
+
+    <!-- 第6題 -->
+    <tr style="height: 45px;">
+      <td style="border: 1px solid black;">6.整體教學時間控制</td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0036__x002e__x6574__x9ad4__x8a'], '非常滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0036__x002e__x6574__x9ad4__x8a'], '滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0036__x002e__x6574__x9ad4__x8a'], '普通'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0036__x002e__x6574__x9ad4__x8a'], '不滿意'), '■', '□')}</span></td>
+      <td style="text-align: center; border: 1px solid black;"><span style="font-size: 24px;">@{if(equals(body('取得項目')?['OData__x0036__x002e__x6574__x9ad4__x8a'], '非常不滿意'), '■', '□')}</span></td>
+    </tr>
+  </tbody>
+</table>
+<div style="font-size: 16px; line-height: 1.6; margin-top: 10px; page-break-inside: avoid;">
+  <strong>建議事項：</strong>
+
+  <div style="margin-top: 8px;">
+    <strong>7. 今日師資培訓中您認為最實用或印象深刻的課程是？為什麼？</strong>
+
+    <div style="border: 1px solid black; padding: 6px; min-height: 50px;">
+      @{body('取得項目')?['OData__x0037__x002e__x4eca__x65e5__x5e']}
+    </div>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <strong>8. 有無覺得內容重複／不具幫助的課程？建議刪減或調整（例如：內容過於冗贅、時間安排不妥、活動缺乏互動等建議）</strong>
+
+    <div style="border: 1px solid black; padding: 6px; min-height: 50px;">
+      @{body('取得項目')?['OData__x0038__x002e__x6709__x7121__x89']}
+    </div>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <strong>9. 未來希望可開設哪些主題的師資課程？</strong>
+
+    <div style="border: 1px solid black; padding: 6px; min-height: 50px;">
+      @{body('取得項目')?['OData__x0039__x002e__x672a__x4f86__x5e']}
+    </div>
+  </div>
+</div>
+
+
+
