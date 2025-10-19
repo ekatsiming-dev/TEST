@@ -101,13 +101,19 @@
       學員對完訓教師教學評估滿意度調查
     </div>
 
-    <table style="width: 100%; font-size: 11pt; margin-bottom: 20px; border: none;">
+    <!-- ▼▼▼ 以下是修改的區塊 ▼▼▼ -->
+    <div class="section-title" style="margin-bottom: 5px;">
+        受評人：@{outputs('取得項目')?['body/field_8']}
+    </div>
+
+    <table style="width: 100%; font-size: 11pt; margin-top: 10px; margin-bottom: 20px; border: none;">
       <tr style="border: none;">
         <td style="width: 33.3%; text-align: left; border: none;">評估日期：@{outputs('取得項目')?['body/OData__x8a55__x4f30__x65e5__x671f_']}</td>
         <td style="width: 33.3%; text-align: left; border: none;">評估者姓名：@{outputs('取得項目')?['body/field_6']}</td>
-        <td style="width: 33.3%; text-align: left; border: none;">被評估者教師姓名：@{outputs('取得項目')?['body/field_8']}</td>
+        <td style="width: 33.3%; text-align: left; border: none;"></td>
       </tr>
     </table>
+    <!-- ▲▲▲ 修改區塊結束 ▲▲▲ -->
 
     <div style="font-size: 11pt; margin-bottom: 25px; line-height: 1.6;">
     問卷內容：本問卷旨在蒐集學員對教師在訓練期間之教學表現的意見與回饋，藉以評估教師在教學方法、互動引導、臨床指導等面向的表現。調查結果將作為教師教學精進及未來師資培訓的依據。
@@ -400,4 +406,3 @@
 
 </body>
 </html>
-
