@@ -125,7 +125,7 @@
       </tr>
     </table>
     
-    <div class="section-title">1.學習熱忱全方位評量</div>
+    <div class="section-title">1. 學習熱忱全方位評量</div>
     <table>
         <thead>
             <tr>
@@ -242,7 +242,7 @@
             </tr>
         </tbody>
     </table>
-        <div class="section-title">2.學習氛圍與態度</div>
+        <div class="section-title">2. 學習氛圍與態度</div>
         <table>
             <thead>
                 <tr>
@@ -283,7 +283,7 @@
         </table>
     
     <div class="section-on-new-page">
-        <div class="section-title">3.教學行為表現</div>
+        <div class="section-title">3. 教學行為表現</div>
         <table>
             <thead>
                 <tr>
@@ -347,7 +347,7 @@
             </tbody>
         </table>
 
-        <div class="section-title">4.您認為此位住院醫師整體教學能力如何?</div>
+        <div class="section-title">4. 您認為此位住院醫師整體教學能力如何?</div>
         <div class="evaluation-result-box">
              <div><span class="score-checkbox">@{if(contains(outputs('取得項目')?['body/field_24'], '優秀'), '■', '□')}</span> 優秀</div>
              <div><span class="score-checkbox">@{if(contains(outputs('取得項目')?['body/field_24'], '良好'), '■', '□')}</span> 良好</div>
@@ -356,12 +356,12 @@
              <div><span class="score-checkbox">@{if(contains(outputs('取得項目')?['body/field_24'], '非常不足'), '■', '□')}</span> 非常不足</div>
         </div>
 
-        <div class="section-title">5.這位住院醫師教學最好的部分是:</div>
+        <div class="section-title">5. 這位住院醫師教學最好的部分是:</div>
         <div class="feedback-box">
             @{outputs('取得項目')?['body/field_25']}
         </div>
 
-        <div class="section-title">6.希望他/她可以再進步的地方是:</div>
+        <div class="section-title">6. 希望他/她可以再進步的地方是:</div>
         <div class="feedback-box">
             @{outputs('取得項目')?['body/field_26']}
         </div>
