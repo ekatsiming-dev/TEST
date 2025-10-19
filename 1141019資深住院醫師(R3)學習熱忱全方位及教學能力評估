@@ -93,8 +93,8 @@
             line-height: 1.6;
         }
 
-        /* --- 強制分頁 --- */
-        .page-break-before {
+        /* --- 強制分頁樣式 --- */
+        .section-on-new-page {
             page-break-before: always;
         }
 
@@ -109,10 +109,10 @@
 
 <div class="container">
 
-    <div style="text-align: center; font-weight: bold; font-size: 18pt; margin-bottom: 15px;"> 奇美醫學中心一般醫學訓練師資培育計劃<br>
+    <div style="text-align: center; font-weight: bold; font-size: 20pt; margin-bottom: 20px;"> 
+      奇美醫學中心一般醫學訓練師資培育計劃<br>
       資深住院醫師(R3)學習熱忱全方位及教學能力評估
     </div>
-    
     <div class="section-title">
       受評人：@{outputs('取得項目')?['body/field_2']}
     </div>
@@ -281,7 +281,8 @@
                 </tr>
             </tbody>
         </table>
-    <div class="page-break-before">
+    
+    <div class="section-on-new-page">
         <div class="section-title">3.教學行為表現</div>
         <table>
             <thead>
@@ -345,8 +346,6 @@
                 </tr>
             </tbody>
         </table>
-
-
 
         <div class="section-title">4.您認為此位住院醫師整體教學能力如何?</div>
         <div class="evaluation-result-box">
