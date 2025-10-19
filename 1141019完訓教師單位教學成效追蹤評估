@@ -110,13 +110,19 @@
       完訓教師單位教學成效追蹤評估
     </div>
 
-    <table style="width: 100%; font-size: 11pt; margin-bottom: 20px; border: none;">
+    <!-- ▼▼▼ 以下是修改的區塊 ▼▼▼ -->
+    <div class="section-title" style="margin-bottom: 5px;">
+        受評人：@{outputs('取得項目')?['body/field_2']}
+    </div>
+
+    <table style="width: 100%; font-size: 11pt; margin-top: 10px; margin-bottom: 20px; border: none;">
       <tr style="border: none;">
         <td style="width: 33.3%; text-align: left; border: none;">評估日期：@{outputs('取得項目')?['body/OData__x8a55__x4f30__x65e5__x671f_']}</td>
         <td style="width: 33.3%; text-align: left; border: none;">評估者姓名：@{outputs('取得項目')?['body/field_1']}</td>
-        <td style="width: 33.3%; text-align: left; border: none;">被評估之教師姓名：@{outputs('取得項目')?['body/field_2']}</td>
+        <td style="width: 33.3%; text-align: left; border: none;"></td>
       </tr>
     </table>
+    <!-- ▲▲▲ 修改區塊結束 ▲▲▲ -->
 
     <div style="font-size: 11pt; margin-bottom: 25px; line-height: 1.6;">
     問卷說明：結果僅用於教學品質改進與教師專業發展,不作為單一評分依據,請放心作答。
@@ -251,127 +257,127 @@
     <div class="section-title">2. 教學能力</div>
     <table>
       <thead>
-            <tr>
-                <th rowspan="2" style="width: 40%; vertical-align: middle;">詳核項目</th>
-                <th colspan="4" style="width: 60%; padding-bottom: 5px; border-bottom: 1px solid #ccc;">評分量尺</th>
-            </tr>
-            <tr>
-                <th style="font-weight: bold; font-size: 10pt; border-top: none;">非常同意</th>
-                <th style="font-weight: bold; font-size: 10pt; border-top: none; border-left: 1px dotted #999;">同意</th>
-                <th style="font-weight: bold; font-size: 10pt; border-top: none; border-left: 1px dotted #999;">普通</th>
-                <th style="font-weight: bold; font-size: 10pt; border-top: none; border-left: 1px dotted #999;">不同意</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="question-cell">1.醫學知識說明</td>
-                <td>
-                    <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '10(非常同意)'), '■', '□')}</span></span>
-                    <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '9(非常同意)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '8(同意)'), '■', '□')}</span></span>
-                    <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '7(同意)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '6(普通)'), '■', '□')}</span></span>
-                    <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '5(普通)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '4(不同意)'), '■', '□')}</span></span>
-                </td>
-            </tr>
-            <tr>
-                <td class="question-cell">2.有組織的教學方式</td>
-                <td>
-                    <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '10(非常同意)'), '■', '□')}</span></span>
-                    <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '9(非常同意)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '8(同意)'), '■', '□')}</span></span>
-                    <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '7(同意)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '6(普通)'), '■', '□')}</span></span>
-                    <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '5(普通)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '4(不同意)'), '■', '□')}</span></span>
-                </td>
-            </tr>
-            <tr>
-                <td class="question-cell">3.運用臨床實例輔助說明</td>
-                <td>
-                    <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '10(非常同意)'), '■', '□')}</span></span>
-                    <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '9(非常同意)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '8(同意)'), '■', '□')}</span></span>
-                    <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '7(同意)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '6(普通)'), '■', '□')}</span></span>
-                    <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '5(普通)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '4(不同意)'), '■', '□')}</span></span>
-                </td>
-            </tr>
-            <tr>
-                <td class="question-cell">4.條理分明的引導學員</td>
-                <td>
-                    <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '10(非常同意)'), '■', '□')}</span></span>
-                    <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '9(非常同意)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '8(同意)'), '■', '□')}</span></span>
-                    <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '7(同意)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '6(普通)'), '■', '□')}</span></span>
-                    <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '5(普通)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '4(不同意)'), '■', '□')}</span></span>
-                </td>
-            </tr>
-            <tr>
-                <td class="question-cell">5.善運用比喻等教學技巧</td>
-                <td>
-                    <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_13'], '10(非常同意)'), '■', '□')}</span></span>
-                    <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_13'], '9(非常同意)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_13'], '8(同意)'), '■', '□')}</span></span>
-                    <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_13'], '7(同意)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_13'], '6(普通)'), '■', '□')}</span></span>
-                    <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_13'], '5(普通)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_13'], '4(不同意)'), '■', '□')}</span></span>
-                </td>
-            </tr>
-            <tr>
-                <td class="question-cell">6.整體教學時間控制</td>
-                <td>
-                    <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_14'], '10(非常同意)'), '■', '□')}</span></span>
-                    <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_14'], '9(非常同意)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_14'], '8(同意)'), '■', '□')}</span></span>
-                    <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_14'], '7(同意)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_14'], '6(普通)'), '■', '□')}</span></span>
-                    <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_14'], '5(普通)'), '■', '□')}</span></span>
-                </td>
-                <td style="border-left: 1px dotted #999;">
-                    <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_14'], '4(不同意)'), '■', '□')}</span></span>
-                </td>
-            </tr>
-        </tbody>
+          <tr>
+              <th rowspan="2" style="width: 40%; vertical-align: middle;">詳核項目</th>
+              <th colspan="4" style="width: 60%; padding-bottom: 5px; border-bottom: 1px solid #ccc;">評分量尺</th>
+          </tr>
+          <tr>
+              <th style="font-weight: bold; font-size: 10pt; border-top: none;">非常同意</th>
+              <th style="font-weight: bold; font-size: 10pt; border-top: none; border-left: 1px dotted #999;">同意</th>
+              <th style="font-weight: bold; font-size: 10pt; border-top: none; border-left: 1px dotted #999;">普通</th>
+              <th style="font-weight: bold; font-size: 10pt; border-top: none; border-left: 1px dotted #999;">不同意</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td class="question-cell">1.醫學知識說明</td>
+              <td>
+                  <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '10(非常同意)'), '■', '□')}</span></span>
+                  <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '9(非常同意)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '8(同意)'), '■', '□')}</span></span>
+                  <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '7(同意)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '6(普通)'), '■', '□')}</span></span>
+                  <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '5(普通)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '4(不同意)'), '■', '□')}</span></span>
+              </td>
+          </tr>
+          <tr>
+              <td class="question-cell">2.有組織的教學方式</td>
+              <td>
+                  <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '10(非常同意)'), '■', '□')}</span></span>
+                  <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '9(非常同意)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '8(同意)'), '■', '□')}</span></span>
+                  <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '7(同意)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '6(普通)'), '■', '□')}</span></span>
+                  <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '5(普通)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '4(不同意)'), '■', '□')}</span></span>
+              </td>
+          </tr>
+          <tr>
+              <td class="question-cell">3.運用臨床實例輔助說明</td>
+              <td>
+                  <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '10(非常同意)'), '■', '□')}</span></span>
+                  <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '9(非常同意)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '8(同意)'), '■', '□')}</span></span>
+                  <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '7(同意)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '6(普通)'), '■', '□')}</span></span>
+                  <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '5(普通)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '4(不同意)'), '■', '□')}</span></span>
+              </td>
+          </tr>
+          <tr>
+              <td class="question-cell">4.條理分明的引導學員</td>
+              <td>
+                  <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '10(非常同意)'), '■', '□')}</span></span>
+                  <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '9(非常同意)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '8(同意)'), '■', '□')}</span></span>
+                  <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '7(同意)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '6(普通)'), '■', '□')}</span></span>
+                  <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '5(普通)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '4(不同意)'), '■', '□')}</span></span>
+              </td>
+          </tr>
+          <tr>
+              <td class="question-cell">5.善運用比喻等教學技巧</td>
+              <td>
+                  <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_13'], '10(非常同意)'), '■', '□')}</span></span>
+                  <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_13'], '9(非常同意)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_13'], '8(同意)'), '■', '□')}</span></span>
+                  <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_13'], '7(同意)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_13'], '6(普通)'), '■', '□')}</span></span>
+                  <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_13'], '5(普通)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_13'], '4(不同意)'), '■', '□')}</span></span>
+              </td>
+          </tr>
+          <tr>
+              <td class="question-cell">6.整體教學時間控制</td>
+              <td>
+                  <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_14'], '10(非常同意)'), '■', '□')}</span></span>
+                  <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_14'], '9(非常同意)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_14'], '8(同意)'), '■', '□')}</span></span>
+                  <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_14'], '7(同意)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_14'], '6(普通)'), '■', '□')}</span></span>
+                  <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_14'], '5(普通)'), '■', '□')}</span></span>
+              </td>
+              <td style="border-left: 1px dotted #999;">
+                  <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_14'], '4(不同意)'), '■', '□')}</span></span>
+              </td>
+          </tr>
+      </tbody>
     </table>
 
     <div style="page-break-before: always;">
@@ -392,57 +398,57 @@
         <tbody>
         <tr>
           <td class="question-cell">1.誘導學員參與討論</td>
-            <td>
-                <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '10(非常同意)'), '■', '□')}</span></span>
-                <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '9(非常同意)'), '■', '□')}</span></span>
-            </td>
-            <td style="border-left: 1px dotted #999;">
-                <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '8(同意)'), '■', '□')}</span></span>
-                <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '7(同意)'), '■', '□')}</span></span>
-            </td>
-            <td style="border-left: 1px dotted #999;">
-                <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '6(普通)'), '■', '□')}</span></span>
-                <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '5(普通)'), '■', '□')}</span></span>
-            </td>
-            <td style="border-left: 1px dotted #999;">
-                <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '4(不同意)'), '■', '□')}</span></span>
-            </td>
+          <td>
+              <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '10(非常同意)'), '■', '□')}</span></span>
+              <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '9(非常同意)'), '■', '□')}</span></span>
+          </td>
+          <td style="border-left: 1px dotted #999;">
+              <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '8(同意)'), '■', '□')}</span></span>
+              <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '7(同意)'), '■', '□')}</span></span>
+          </td>
+          <td style="border-left: 1px dotted #999;">
+              <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '6(普通)'), '■', '□')}</span></span>
+              <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '5(普通)'), '■', '□')}</span></span>
+          </td>
+          <td style="border-left: 1px dotted #999;">
+              <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '4(不同意)'), '■', '□')}</span></span>
+          </td>
         </tr>
         <tr>
           <td class="question-cell">2.教學互動(教師與學員)</td>
           <td>
-                <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '10(非常同意)'), '■', '□')}</span></span>
-                <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '9(非常同意)'), '■', '□')}</span></span>
-            </td>
-            <td style="border-left: 1px dotted #999;">
-                <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '8(同意)'), '■', '□')}</span></span>
-                <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '7(同意)'), '■', '□')}</span></span>
-            </td>
-            <td style="border-left: 1px dotted #999;">
-                <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '6(普通)'), '■', '□')}</span></span>
-                <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '5(普通)'), '■', '□')}</span></span>
-            </td>
-            <td style="border-left: 1px dotted #999;">
-                <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '4(不同意)'), '■', '□')}</span></span>
-            </td>
+              <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '10(非常同意)'), '■', '□')}</span></span>
+              <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '9(非常同意)'), '■', '□')}</span></span>
+          </td>
+          <td style="border-left: 1px dotted #999;">
+              <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '8(同意)'), '■', '□')}</span></span>
+              <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '7(同意)'), '■', '□')}</span></span>
+          </td>
+          <td style="border-left: 1px dotted #999;">
+              <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '6(普通)'), '■', '□')}</span></span>
+              <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '5(普通)'), '■', '□')}</span></span>
+          </td>
+          <td style="border-left: 1px dotted #999;">
+              <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '4(不同意)'), '■', '□')}</span></span>
+          </td>
         </tr>
         <tr>
           <td class="question-cell">3.鼓勵學員有問題即時提出</td>
           <td>
-                <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '10(非常同意)'), '■', '□')}</span></span>
-                <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '9(非常同意)'), '■', '□')}</span></span>
-            </td>
-            <td style="border-left: 1px dotted #999;">
-                <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '8(同意)'), '■', '□')}</span></span>
-                <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '7(同意)'), '■', '□')}</span></span>
-            </td>
-            <td style="border-left: 1px dotted #999;">
-                <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '6(普通)'), '■', '□')}</span></span>
-                <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '5(普通)'), '■', '□')}</span></span>
-            </td>
-            <td style="border-left: 1px dotted #999;">
-                <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '4(不同意)'), '■', '□')}</span></span>
-            </td>
+              <span class="score-display">10<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '10(非常同意)'), '■', '□')}</span></span>
+              <span class="score-display">9<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '9(非常同意)'), '■', '□')}</span></span>
+          </td>
+          <td style="border-left: 1px dotted #999;">
+              <span class="score-display">8<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '8(同意)'), '■', '□')}</span></span>
+              <span class="score-display">7<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '7(同意)'), '■', '□')}</span></span>
+          </td>
+          <td style="border-left: 1px dotted #999;">
+              <span class="score-display">6<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '6(普通)'), '■', '□')}</span></span>
+              <span class="score-display">5<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '5(普通)'), '■', '□')}</span></span>
+          </td>
+          <td style="border-left: 1px dotted #999;">
+              <span class="score-display">4<span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '4(不同意)'), '■', '□')}</span></span>
+          </td>
         </tr>
       </tbody>
       </table>
@@ -519,7 +525,7 @@
         </tbody>
       </table>
 
-<div class="section-title">5. 整體評估結果</div>
+    <div class="section-title">5. 整體評估結果</div>
        <div class="evaluation-result-box">
             <div><span class="score-checkbox">@{if(contains(outputs('取得項目')?['body/field_21'], 'Lv.5'), '■', '□')}</span> Lv.5 | 卓越引導 (靈活深入應用所學,引導學員自主探討與深度反思)</div>
             <div><span class="score-checkbox">@{if(contains(outputs('取得項目')?['body/field_21'], 'Lv.4'), '■', '□')}</span> Lv.4 | 高階應用並促發反思 (有效應用所學,並引導學員反思)</div>
