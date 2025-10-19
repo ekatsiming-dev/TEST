@@ -106,11 +106,11 @@
         受評人：@{outputs('取得項目')?['body/field_8']}
     </div>
 
-    <table style="width: 100%; font-size: 11pt; margin-top: 10px; margin-bottom: 20px; border: none;">
+    <table style="width: 100%; font-size: 11pt; margin-bottom: 15px; border: none;">
       <tr style="border: none;">
         <td style="width: 33.3%; text-align: left; border: none;">評估日期：@{outputs('取得項目')?['body/OData__x8a55__x4f30__x65e5__x671f_']}</td>
         <td style="width: 33.3%; text-align: left; border: none;">評估者姓名：@{outputs('取得項目')?['body/field_6']}</td>
-        <td style="width: 33.3%; text-align: left; border: none;"></td>
+        <td style="width: 33.3%; text-align: left; border: none;">評估者職級：@{outputs('取得項目')?['body/field_7']}</td>
       </tr>
     </table>
     <!-- ▲▲▲ 修改區塊結束 ▲▲▲ -->
