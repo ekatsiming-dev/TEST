@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資深住院醫師(R3)學習熱忱全方位及教學能力評估</title>
+    <style>
+        /* --- 整體與字體設定 --- */
+        body {
+            font-family: "Noto Sans TC", "思源黑體", "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        /* --- 主要內容容器 --- */
+        .container {
+            max-width: 21cm; /* A4 寬度 */
+            min-height: 29.7cm; /* A4 高度 */
+            margin: auto;
+            background-color: #fff;
+            padding: 2cm;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+
+        /* --- 表格通用樣式 --- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10pt;
+            table-layout: fixed;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            page-break-inside: avoid;
+        }
+        
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px 6px;
+            text-align: center;
+            vertical-align: middle;
+            word-wrap: break-word;
+        }
+
+        thead th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        td.question-cell {
+            text-align: left;
+            padding-left: 10px;
+            font-size: 10pt;
+        }
+
+        /* --- 量尺分數顯示 --- */
+        .score-checkbox {
+            font-size: 11pt;
+            font-family: "Segoe UI Symbol", sans-serif; /* 確保方塊符號正確顯示 */
+        }
+        
+        /* --- 區塊標題 --- */
+        .section-title {
+            font-size: 14pt;
+            font-weight: bold;
+            margin-top: 25px;
+            margin-bottom: 5px;
+            color: #003566;
+            border-bottom: 2px solid #003566;
+            padding-bottom: 5px;
+        }
+
+        /* --- 單選結果區 --- */
+        .evaluation-result-box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-top: 10px;
+            font-size: 10pt;
+            line-height: 2;
+        }
+
+        /* --- 回饋意見區 --- */
+        .feedback-box {
+            border: 1px solid #ccc; 
+            padding: 12px; 
+            margin-top: 10px;
+            min-height: 80px;
+            page-break-inside: avoid;
+            font-size: 10pt;
+            line-height: 1.6;
+        }
+
+        /* --- 專為列印設計 --- */
+        @media print {
+            body { background-color: #fff; padding: 0; font-size: 10pt; }
+            .container { box-shadow: none; border: none; padding: 0; margin: 0; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div style="text-align: center; font-weight: bold; font-size: 20pt; margin-bottom: 20px;">
+      奇美醫學中心一般醫學訓練師資培育計劃<br>
+      資深住院醫師(R3)學習熱忱全方位及教學能力評估
+    </div>
+    
+    <div class="section-title">
+      受評人：@{outputs('取得項目')?['body/field_2']}
+    </div>
+
+    <table style="width: 100%; font-size: 11pt; margin-bottom: 20px; border: none;">
+      <tr style="border: none;">
+        <td style="width: 33.3%; text-align: left; border: none;">評估日期：@{outputs('取得項目')?['body/OData__x8a55__x4f30__x65e5__x671f_']}</td>
+        <td style="width: 33.3%; text-align: left; border: none;">評估者姓名：@{outputs('取得項目')?['body/field_3']}</td>
+        <td style="width: 33.3%; text-align: left; border: none;">評估者身分：@{outputs('取得項目')?['body/field_4']}</td>
+      </tr>
+    </table>
+    
+    <div class="section-title">學習熱忱全方位評量</div>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 45%;">詳核項目</th>
+                <th style="width: 7.8%;">95</th>
+                <th style="width: 7.8%;">90</th>
+                <th style="width: 7.8%;">85</th>
+                <th style="width: 7.8%;">80</th>
+                <th style="width: 7.8%;">75</th>
+                <th style="width: 7.8%;">70</th>
+                <th style="width: 7.8%;">65</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="question-cell">1.該醫師對病人與家屬能耐心解釋</td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_5'], '95'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_5'], '90'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_5'], '85'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_5'], '80'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_5'], '75'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_5'], '70'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_5'], '65'), '■', '□')}</span></td>
+            </tr>
+            <tr>
+                <td class="question-cell">2.該醫師會盡其所能減輕病人的痛苦</td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_6'], '95'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_6'], '90'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_6'], '85'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_6'], '80'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_6'], '75'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_6'], '70'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_6'], '65'), '■', '□')}</span></td>
+            </tr>
+            <tr>
+                <td class="question-cell">3.該醫師會主動參與並關心醫院的公共事務</td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_7'], '95'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_7'], '90'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_7'], '85'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_7'], '80'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_7'], '75'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_7'], '70'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_7'], '65'), '■', '□')}</span></td>
+            </tr>
+            <tr>
+                <td class="question-cell">4.該醫師會出席並積極參與醫院內部的會議</td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_8'], '95'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_8'], '90'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_8'], '85'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_8'], '80'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_8'], '75'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_8'], '70'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_8'], '65'), '■', '□')}</span></td>
+            </tr>
+            <tr>
+                <td class="question-cell">5.該醫師願意和院內同仁討論關於病人病情的知識</td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '95'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '90'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '85'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '80'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '75'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '70'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_9'], '65'), '■', '□')}</span></td>
+            </tr>
+            <tr>
+                <td class="question-cell">6.該醫師會提出建設性的建議來改進醫院的服務</td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '95'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '90'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '85'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '80'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '75'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '70'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_10'], '65'), '■', '□')}</span></td>
+            </tr>
+             <tr>
+                <td class="question-cell">7.對於業務上需配合的事情,該醫師會盡力完成</td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '95'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '90'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '85'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '80'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '75'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '70'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_11'], '65'), '■', '□')}</span></td>
+            </tr>
+             <tr>
+                <td class="question-cell">8.該醫師與其他醫療團隊能維持良好的溝通及互動</td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '95'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '90'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '85'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '80'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '75'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '70'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_12'], '65'), '■', '□')}</span></td>
+            </tr>
+             <tr>
+                <td class="question-cell">9.該醫師會盡可能提供同仁所需的協助</td>
+                <td><span class="score-checkbox">@{if(equals(outputs('建立項目')?['body/OData__x8a72__x91ab__x5e2b__x6703__x76'], '95'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('建立項目')?['body/OData__x8a72__x91ab__x5e2b__x6703__x76'], '90'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('建立項目')?['body/OData__x8a72__x91ab__x5e2b__x6703__x76'], '85'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('建立項目')?['body/OData__x8a72__x91ab__x5e2b__x6703__x76'], '80'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('建立項目')?['body/OData__x8a72__x91ab__x5e2b__x6703__x76'], '75'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('建立項目')?['body/OData__x8a72__x91ab__x5e2b__x6703__x76'], '70'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('建立項目')?['body/OData__x8a72__x91ab__x5e2b__x6703__x76'], '65'), '■', '□')}</span></td>
+            </tr>
+             <tr>
+                <td class="question-cell">10.我很樂意和該醫師共事</td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/OData__x6211__x5f88__x6a02__x610f__x54'], '95'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/OData__x6211__x5f88__x6a02__x610f__x54'], '90'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/OData__x6211__x5f88__x6a02__x610f__x54'], '85'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/OData__x6211__x5f88__x6a02__x610f__x54'], '80'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/OData__x6211__x5f88__x6a02__x610f__x54'], '75'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/OData__x6211__x5f88__x6a02__x610f__x54'], '70'), '■', '□')}</span></td>
+                <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/OData__x6211__x5f88__x6a02__x610f__x54'], '65'), '■', '□')}</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="page-break-before: always;">
+        <div class="section-title">教學行為表現</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%;">詳核項目</th>
+                    <th style="width: 12%;">非常滿意</th>
+                    <th style="width: 12%;">滿意</th>
+                    <th style="width: 12%;">普通</th>
+                    <th style="width: 12%;">不滿意</th>
+                    <th style="width: 12%;">非常不滿意</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="question-cell">1.教學準備與投入度 (是否有事前準備教材或臨床案例)</td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '非常滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '普通'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '不滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_15'], '非常不滿意'), '■', '□')}</span></td>
+                </tr>
+                <tr>
+                    <td class="question-cell">2.解說清晰與結構性 (能清楚有條理地講解重點或操作)</td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '非常滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '普通'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '不滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_16'], '非常不滿意'), '■', '□')}</span></td>
+                </tr>
+                <tr>
+                    <td class="question-cell">3.臨床帶教態度 (是否主動指導、鼓勵提問與討論)</td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '非常滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '普通'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '不滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_17'], '非常不滿意'), '■', '□')}</span></td>
+                </tr>
+                <tr>
+                    <td class="question-cell">4.回饋與指導技巧 (能給予具體、建設性的回饋)</td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_18'], '非常滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_18'], '滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_18'], '普通'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_18'], '不滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_18'], '非常不滿意'), '■', '□')}</span></td>
+                </tr>
+                <tr>
+                    <td class="question-cell">5.示範操作技巧 (是否具備良好示範與解說能力)</td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_19'], '非常滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_19'], '滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_19'], '普通'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_19'], '不滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_19'], '非常不滿意'), '■', '□')}</span></td>
+                </tr>
+                <tr>
+                    <td class="question-cell">6.問題解決能力 (面對學員問題能給予解答或引導)</td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_20'], '非常滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_20'], '滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_20'], '普通'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_20'], '不滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_20'], '非常不滿意'), '■', '□')}</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-title">學習氛圍與態度</div>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 40%;">詳核項目</th>
+                    <th style="width: 12%;">非常滿意</th>
+                    <th style="width: 12%;">滿意</th>
+                    <th style="width: 12%;">普通</th>
+                    <th style="width: 12%;">不滿意</th>
+                    <th style="width: 12%;">非常不滿意</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="question-cell">1.尊重與耐心 (對學員有無尊重、耐心對待)</td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_21'], '非常滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_21'], '滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_21'], '普通'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_21'], '不滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_21'], '非常不滿意'), '■', '□')}</span></td>
+                </tr>
+                <tr>
+                    <td class="question-cell">2.激發學習動機 (是否能鼓勵學員主動學習)</td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_22'], '非常滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_22'], '滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_22'], '普通'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_22'], '不滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_22'], '非常不滿意'), '■', '□')}</span></td>
+                </tr>
+                <tr>
+                    <td class="question-cell">3.團隊互動與協作 (是否促進團隊正向互動)</td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_23'], '非常滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_23'], '滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_23'], '普通'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_23'], '不滿意'), '■', '□')}</span></td>
+                    <td><span class="score-checkbox">@{if(equals(outputs('取得項目')?['body/field_23'], '非常不滿意'), '■', '□')}</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-title">您認為此位住院醫師整體教學能力如何?</div>
+        <div class="evaluation-result-box">
+             <div><span class="score-checkbox">@{if(contains(outputs('取得項目')?['body/field_24'], '優秀'), '■', '□')}</span> 優秀</div>
+             <div><span class="score-checkbox">@{if(contains(outputs('取得項目')?['body/field_24'], '良好'), '■', '□')}</span> 良好</div>
+             <div><span class="score-checkbox">@{if(contains(outputs('取得項目')?['body/field_24'], '尚可'), '■', '□')}</span> 尚可</div>
+             <div><span class="score-checkbox">@{if(contains(outputs('取得項目')?['body/field_24'], '尚待加強'), '■', '□')}</span> 尚待加強</div>
+             <div><span class="score-checkbox">@{if(contains(outputs('取得項目')?['body/field_24'], '非常不足'), '■', '□')}</span> 非常不足</div>
+        </div>
+
+        <div class="section-title">這位住院醫師教學最好的部分是:</div>
+        <div class="feedback-box">
+            @{outputs('取得項目')?['body/field_25']}
+        </div>
+
+        <div class="section-title">希望他/她可以再進步的地方是:</div>
+        <div class="feedback-box">
+            @{outputs('取得項目')?['body/field_26']}
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
