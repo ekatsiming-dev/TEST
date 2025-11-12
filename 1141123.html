@@ -79,17 +79,20 @@
             background-color: #D87B6C; /* 維持跳色：陶土紅 */
             border: 2px solid #ffffff;
             border-radius: 50%;
-            width: 24px; /* 調整大小以容納數字 */
-            height: 24px; /* 調整大小以容納數字 */
+            width: 20px;
+            height: 20px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white; /* 數字顏色 */
-            font-weight: bold;
-            font-size: 12px;
         }
-        /* 移除 ::after ，因為我們現在用 html 塞數字 */
+        .morandi-marker-icon::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background-color: #ffffff;
+            border-radius: 50%;
+        }
 
         .cinematic-title {
             letter-spacing: 0.05em;
@@ -111,7 +114,7 @@
 
         <header class="text-center p-6">
             <h1 class="text-3xl md:text-4xl font-bold cinematic-title">
-                AI 工作坊 報名儀表板(2025/11/23)
+                1141123 AI 工作坊 報名儀表板
             </h1>
         </header>
 
@@ -138,15 +141,20 @@
             </div>
         </section>
 
+        <!-- 
+         * ---------------------------------------------------
+         * 移除：學員背景分析 (依據 N=61 職類分析)
+         * ---------------------------------------------------
+        -->
         
         <!-- 圖表區 (地圖 & 佔比) -->
         <section class="grid grid-cols-1 lg:grid-cols-5 gap-6">
             
             <!-- 地圖 (更新：依據 N=21 院外人員) -->
             <div class="lg:col-span-3 bg-white cinematic-mask p-4 md:p-6">
-                <h2 class="text-xl font-bold mb-1">院外人員地理分佈 (依縣市)</h2>
+                <h2 class="text-xl font-bold mb-1">院外人員地理分佈</h2>
                 <!-- 更新：使用 N=21 (動態更新) -->
-                <p id="map-subtitle" class="text-sm opacity-70 mb-4">(來源: 院外人員, N=21, 標記 20/21 人，1位無法定位)</p>
+                <p id="map-subtitle" class="text-sm opacity-70 mb-4">(來源: 院外人員, N=21, 標記 20/21 人)</p>
                 
                 <div id="map" class="mt-0"></div>
             </div>
@@ -169,7 +177,7 @@
                 <div class="bg-white cinematic-mask p-4 md:p-6">
                     <h2 class="text-xl font-bold mb-1">決策者 vs 執行者 (百分比)</h2>
                     <p class="text-sm opacity-70 mb-4">
-                        (來源: 職稱分析, N=61)
+                        (來源: 職稱分析, N=61, <span class="font-bold text-red-600">範例資料</span>)
                     </p>
                     <div id="role-chart-container" style="height: 230px;" class="flex items-center justify-center">
                         <canvas id="decisionMakerChart"></canvas>
@@ -255,23 +263,22 @@
         
         // ----- (保留) 院外人員服務單位與經緯度 (Geocoding) -----
         // 這是我們手動建立的地理編碼字典 (N=13 個地點)
-        // 更新：新增 "city" 屬性
         const externalLocations = {
-            "中山大學": { lat: 22.6295, lon: 120.2662, name: "中山大學", city: "高雄市" },
-            "成大醫院": { lat: 22.9996, lon: 120.2223, name: "成大醫院", city: "台南市" },
-            "大林慈濟醫院": { lat: 23.5935, lon: 120.4658, name: "大林慈濟醫院", city: "嘉義縣" },
-            "高雄榮民總醫院": { lat: 22.6744, lon: 120.3233, name: "高雄榮民總醫院", city: "高雄市" },
-            "寶建醫院": { lat: 22.6808, lon: 120.4850, name: "寶建醫院", city: "屏東縣" },
-            "李俊杰診所": { lat: 22.9934, lon: 120.2127, name: "李俊杰診所", city: "台南市" },
-            "三愛診所": { lat: 23.0033, lon: 120.2163, name: "三愛診所", city: "台南市" },
-            "德幼小兒科": { lat: 23.0063, lon: 120.2114, name: "德幼小兒科", city: "台南市" },
-            "復華耳鼻喉科診所": { lat: 23.0090, lon: 120.2274, name: "復華耳鼻喉科診所", city: "台南市" },
-            "晉慶眼科診所": { lat: 23.0001, lon: 120.2130, name: "晉慶眼科診所", city: "台南市" },
-            "正信診所": { lat: 23.0232, lon: 120.2241, name: "正信診所", city: "台南市" },
-            "黃清相診所": { lat: 23.0253, lon: 120.2198, name: "黃清相診所", city: "台南市" },
-            "高雄醫學大學": { lat: 22.6465, lon: 120.3010, name: "高雄醫學大學", city: "高雄市" },
-            "國光生物科技": { lat: 24.2154, lon: 120.6022, name: "國光生物科技", city: "台中市" }, // 新增
-            "樹德科技大學": { lat: 22.7091, lon: 120.3473, name: "樹德科技大學", city: "高雄市" }  // 新增
+            "中山大學": { lat: 22.6295, lon: 120.2662, name: "中山大學" },
+            "成大醫院": { lat: 22.9996, lon: 120.2223, name: "成大醫院" },
+            "大林慈濟醫院": { lat: 23.5935, lon: 120.4658, name: "大林慈濟醫院" },
+            "高雄榮民總醫院": { lat: 22.6744, lon: 120.3233, name: "高雄榮民總醫院" },
+            "寶建醫院": { lat: 22.6808, lon: 120.4850, name: "寶建醫院" },
+            "李俊杰診所": { lat: 22.9934, lon: 120.2127, name: "李俊杰診所" },
+            "三愛診所": { lat: 23.0033, lon: 120.2163, name: "三愛診所" },
+            "德幼小兒科": { lat: 23.0063, lon: 120.2114, name: "德幼小兒科" },
+            "復華耳鼻喉科診所": { lat: 23.0090, lon: 120.2274, name: "復華耳鼻喉科診所" },
+            "晉慶眼科診所": { lat: 23.0001, lon: 120.2130, name: "晉慶眼科診所" },
+            "正信診所": { lat: 23.0232, lon: 120.2241, name: "正信診所" },
+            "黃清相診所": { lat: 23.0253, lon: 120.2198, name: "黃清相診所" },
+            "高雄醫學大學": { lat: 22.6465, lon: 120.3010, name: "高雄醫學大學" },
+            "國光生物科技": { lat: 24.2154, lon: 120.6022, name: "國光生物科技" }, // 新增
+            "樹德科技大學": { lat: 22.7091, lon: 120.3473, name: "樹德科技大學" }  // 新增
             // "歐洲工商管理學院" 刻意省略 (無法定位)
         };
         
@@ -316,7 +323,6 @@
             });
 
             // --- 2. 地理分佈圖 (依據 N=21 院外人員) ---
-            // (更新：彙整至縣市)
             const map = L.map('map').setView([23.1, 120.3], 9); 
             L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -324,17 +330,13 @@
                 maxZoom: 19
             }).addTo(map);
 
-            // (A) 縣市座標 (用於放置標記)
-            const cityCoordinates = {
-                "台南市": { lat: 22.99, lon: 120.21 },
-                "高雄市": { lat: 22.62, lon: 120.30 },
-                "嘉義縣": { lat: 23.59, lon: 120.46 }, // 大林慈濟
-                "屏東縣": { lat: 22.68, lon: 120.48 }, // 寶建醫院
-                "台中市": { lat: 24.21, lon: 120.60 }  // 國光生技
-            };
+            const morandiIcon = L.divIcon({
+                className: 'morandi-marker-icon',
+                iconSize: [20, 20]
+            });
 
-            // (B) 處理 N=21 的資料，彙整至縣市
-            const cityCounts = {};
+            // (更新) 處理 N=21 的資料，並使用模糊比對
+            const locationsToMark = {};
             let mappedCount = 0;
             const totalExternal = finalDashboardData.totalExternal;
             const locationKeys = Object.keys(externalLocations);
@@ -343,7 +345,7 @@
             function findLocationInfo(unitString) {
                 for (const key of locationKeys) {
                     if (unitString.includes(key)) {
-                        return externalLocations[key]; //
+                        return externalLocations[key];
                     }
                 }
                 return null; // 找不到
@@ -352,47 +354,32 @@
             finalDashboardData.externalParticipantsList.forEach(person => {
                 const locationInfo = findLocationInfo(person.unit);
                 
-                // locationInfo 包含 { lat, lon, name, city }
-                if (locationInfo && locationInfo.city) {
+                if (locationInfo) {
                     mappedCount++; // 成功 mapping 的人數
-                    const city = locationInfo.city;
-                    if (!cityCounts[city]) {
-                        cityCounts[city] = 0;
+                    const geoKey = `${locationInfo.lat},${locationInfo.lon}`;
+                    if (!locationsToMark[geoKey]) {
+                        locationsToMark[geoKey] = { info: locationInfo, count: 0 };
                     }
-                    cityCounts[city]++;
+                    locationsToMark[geoKey].count++;
                 }
-                // "歐洲工商管理學院" 等找不到的，或沒有 city 屬性的會被自動跳過
+                // '歐洲工商管理學院' 等找不到的會被自動跳過
             });
 
-            // (C) 動態更新地圖副標題
+            // 動態更新地圖副標題
             const subtitleEl = document.getElementById('map-subtitle');
-            subtitleEl.textContent = `(來源: 院外人員, N=${totalExternal}, 成功標記 ${mappedCount}/${totalExternal} 人)`;
-            
-            // (D) 將彙整後的縣市資料加到地圖
-            Object.keys(cityCounts).forEach(city => {
-                const count = cityCounts[city];
-                const coords = cityCoordinates[city];
+            subtitleEl.textContent = `(來源: 院外人員, N=${totalExternal}, 標記 ${mappedCount}/${totalExternal} 人)`;
 
-                if (coords) {
-                    // 建立一個顯示數字的 marker
-                    const numberIcon = L.divIcon({
-                        className: 'morandi-marker-icon', // 沿用
-                        html: `${count}`, // 直接放數字
-                        iconAnchor: [12, 12] // 中心點
-                    });
-
-                    const popupContent = `
-                        <div style="font-family: 'Noto Sans TC', sans-serif;">
-                            <strong style="font-size: 1.1em;">${city}</strong><br>
-                            報名人數： ${count} 人
-                        </div>
-                    `;
-                    L.marker([coords.lat, coords.lon], { icon: numberIcon })
-                        .addTo(map)
-                        .bindPopup(popupContent);
-                }
+            Object.values(locationsToMark).forEach(loc => {
+                const popupContent = `
+                    <div style="font-family: 'Noto Sans TC', sans-serif;">
+                        <strong style="font-size: 1.1em;">${loc.info.name}</strong><br>
+                        報名人數： ${loc.count} 人
+                    </div>
+                `;
+                L.marker([loc.info.lat, loc.info.lon], { icon: morandiIcon })
+                    .addTo(map)
+                    .bindPopup(popupContent);
             });
-
 
             // --- 3. 更新：分組長條圖 (依據 N=61 職類分析) ---
             const ctxGroup = document.getElementById('groupChart').getContext('2d');
