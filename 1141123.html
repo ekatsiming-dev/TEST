@@ -34,7 +34,7 @@
         }
 
         .bg-brand-base { background-color: #f8fafc; }
-        .bg-brand-main { background-color: #003566; }
+        .bg-brand-main { background-color: #4A6D90; } /* (更新) 柔和藍色 */
         .bg-brand-accent { background-color: #fca311; }
         .bg-brand-highlight { background-color: #fef9c3; }
         
@@ -97,7 +97,7 @@
         
         /* (更新) 院內標記樣式 */
         .morandi-marker-icon-internal {
-            background-color: #003566; /* (更新) 主色 (院內) */
+            background-color: #4A6D90; /* (更新) 柔和藍色 (院內) */
             border: 2px solid #ffffff;
             border-radius: 50%;
             width: 20px;
@@ -155,7 +155,7 @@
                 <!-- 更新：使用 N=21 -->
                 <p id="kpi-external" class="text-4xl font-bold mt-2">21</p>
             </div>
-            <div class="bg-brand-main cinematic-mask p-6 text-brand-light"> <!-- (更新) 院內改為藍色 -->
+            <div class="bg-brand-main cinematic-mask p-6 text-brand-light"> <!-- (更新) 院內改為柔和藍色 -->
                 <h2 class="text-lg font-semibold opacity-80">奇美醫院同仁</h2>
                 <!-- 更新：使用 N=40 -->
                 <p id="kpi-internal" class="text-4xl font-bold mt-2">40</p>
@@ -427,7 +427,7 @@
                     if (counts.internal > 0) {
                         const badge = document.createElement('span');
                         badge.className = 'data-badge';
-                        badge.style.backgroundColor = '#003566'; /* (更新) 亮藍色 */
+                        badge.style.backgroundColor = '#4A6D90'; /* (更新) 柔和藍色 */
                         badge.style.color = '#ffffff';
                         badge.textContent = `台南市 (院內) ${counts.internal} 人`;
                         cityContainer.appendChild(badge);
@@ -482,7 +482,7 @@
                         {
                             label: '資訊',
                             data: finalDashboardData.groupRoleData.it,
-                            backgroundColor: '#003566', // (更新) 主色
+                            backgroundColor: '#4A6D90', // (更新) 柔和藍色
                         },
                         {
                             label: '臨床',
@@ -492,7 +492,7 @@
                         {
                             label: '非臨床',
                             data: finalDashboardData.groupRoleData.nonClinical,
-                            backgroundColor: '#94a3b8', // (更新) 灰色
+                            backgroundColor: '#fef9c3', // (更新) 灰色 -> 米黃色
                         }
                     ]
                 },
@@ -544,7 +544,7 @@
                         ],
                         // (更新) 調整配色 (冷色 v.s. 暖色)
                         backgroundColor: [
-                            '#003566', // 冷色 (院內)
+                            '#4A6D90', // (更新) 柔和藍色 (院內)
                             '#fca311', // 暖色 1
                             '#fbbf24', // 暖色 2
                             '#f97316', // 暖色 3
