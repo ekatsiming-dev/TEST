@@ -7,7 +7,7 @@
     
     <!-- 載入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    A
+    
     <!-- 載入 Leaflet.js (地圖) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -146,6 +146,34 @@
                 <p id="kpi-internal" class="text-4xl font-bold mt-2">44</p>
             </div>
         </section>
+
+        <!-- 
+          * ---------------------------------------------------
+          * 新增：學員背景分析 (依據我們的分析結果)
+          * 資訊背景: 6
+          * 臨床人員: 41
+          * 非臨床人員: 22
+          * ---------------------------------------------------
+        -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-morandi-gold cinematic-mask p-6 text-morandi-dark">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-lg font-semibold opacity-80">資訊背景人員</h2>
+                    <span class="data-badge" style="background-color: #CBB9A8; color: #5a5a5a;">分析結果</span>
+                </div>
+                <p class="text-4xl font-bold mt-2">6</p>
+            </div>
+            <div class="bg-morandi-blue cinematic-mask p-6 text-white">
+                <h2 class="text-lg font-semibold opacity-80">臨床人員</h2>
+                <p class="text-4xl font-bold mt-2">41</p>
+            </div>
+            <div class="bg-morandi-warm-gray cinematic-mask p-6 text-morandi-dark">
+                <h2 class="text-lg font-semibold opacity-80">非臨床人員</h2>
+                <p class="text-4xl font-bold mt-2">22</p>
+            </div>
+        </section>
+        <!-- 學員背景分析區塊 結束 -->
+
 
         <!-- 圖表區 (地圖 & 佔比) -->
         <section class="grid grid-cols-1 lg:grid-cols-5 gap-6">
