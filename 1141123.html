@@ -95,9 +95,9 @@
             border-radius: 50%;
         }
         
-        /* (新增) 院內標記樣式 */
+        /* (更新) 院內標記樣式 */
         .morandi-marker-icon-internal {
-            background-color: #003566; /* (不變) 主色 (院內) */
+            background-color: #003566; /* (更新) 主色 (院內) */
             border: 2px solid #ffffff;
             border-radius: 50%;
             width: 20px;
@@ -121,8 +121,8 @@
         
         .data-badge {
             font-size: 0.75rem;
-            background-color: #fef3c7; /* 淺黃 */
-            color: #92400e; /* 深黃褐 */
+            background-color: #fef9c3; /* (更新) 強調 */
+            color: #92400e; /* (更新) 深黃褐 */
             padding: 0.25rem 0.75rem;
             border-radius: 9999px;
             font-weight: 700;
@@ -209,7 +209,7 @@
                 <!-- 更新：標題 -->
                 <h2 class="text-xl font-bold">各組成員職類結構</h2>
                 <!-- 更新：N=61 -->
-                <span class="data-badge" style="background-color: #fef9c3; color: #92400e;">來源: 分組名單 (N=61)</span>
+                <span class="data-badge">來源: 分組名單 (N=61)</span>
              </div>
             <!-- 更新：說明文字 -->
             <p class="text-sm opacity-70 mb-4">
@@ -314,7 +314,7 @@
         
         // ----- Chart.js 莫蘭迪風格全域設定 -----
         Chart.defaults.font.family = "'Noto Sans TC', sans-serif";
-        Chart.defaults.color = '#5a5a5a';
+        Chart.defaults.color = '#1f2937'; // (更新) 深色文字
         Chart.defaults.plugins.legend.position = 'bottom';
         Chart.defaults.plugins.legend.labels.padding = 20;
 
@@ -336,12 +336,12 @@
 
             // (更新) 定義兩種標記
             const externalIcon = L.divIcon({
-                className: 'morandi-marker-icon', // 陶土紅 (院外)
+                className: 'morandi-marker-icon', // 琥珀色 (院外)
                 iconSize: [20, 20]
             });
             
             const internalIcon = L.divIcon({
-                className: 'morandi-marker-icon-internal', // 灰藍 (院內)
+                className: 'morandi-marker-icon-internal', // 亮藍 (院內)
                 iconSize: [20, 20]
             });
 
@@ -435,7 +435,7 @@
                     if (counts.external > 0) {
                         const badge = document.createElement('span');
                         badge.className = 'data-badge';
-                        badge.style.backgroundColor = '#fca311'; /* (更新) 跳色 */
+                        badge.style.backgroundColor = '#fca311'; /* (更新) 琥珀色 */
                         badge.style.color = '#1f2937'; /* (更新) 深色文字 */
                         badge.textContent = `台南市 (院外) ${counts.external} 人`;
                         cityContainer.appendChild(badge);
@@ -446,13 +446,13 @@
                     if (total > 0) {
                         const badge = document.createElement('span');
                         badge.className = 'data-badge';
-                        badge.style.backgroundColor = '#fca311'; /* (更新) 跳色 */
+                        badge.style.backgroundColor = '#fca311'; /* (更新) 琥珀色 */
                         badge.style.color = '#1f2937'; /* (更新) 深色文字 */
                         badge.textContent = `${city} ${total} 人`;
-                        cityContainer.appendChild(badge); // <-- FIX 1: 補上此行
-                    } // <-- FIX 2: 補上 if 的 '}'
+                        cityContainer.appendChild(badge); 
+                    } 
                 }
-            } // <-- FIX 3: 補上 for 迴圈的 '}'
+            } 
             // ** (新增) 渲染結束 **
 
 
@@ -525,16 +525,13 @@
                 }
             });
 
-            // --- (移除) 院外人員類別圖 ---
-            
-            // --- (移除) 院外醫院層級圖 ---
-
             // --- 3. (合併) 全體人員背景分析圖 (N=61) ---
             const ctxCombined = document.getElementById('combinedAnalysisChart').getContext('2d');
             new Chart(ctxCombined, {
                 type: 'doughnut',
                 data: {
-                    labels: ['院內同仁', '院外-醫學中心', '院外-診所', '院外-地區醫院', '院外-學校', '院外-其他'],
+                    // (更新) 調整標籤
+                    labels: ['院內同仁 (醫學中心)', '院外-醫學中心', '院外-診所', '院外-地區醫院', '院外-學校', '院外-其他'],
                     datasets: [{
                         label: '背景分析',
                         data: [
@@ -545,13 +542,14 @@
                             finalDashboardData.externalAnalysis.byType.學校,
                             finalDashboardData.externalAnalysis.byType.其他
                         ],
+                        // (更新) 調整配色 (冷色 v.s. 暖色)
                         backgroundColor: [
-                            '#003566', // 亮藍 (院內)
-                            '#fca311', // 琥珀 (醫中)
-                            '#60a5fa', // 淺藍 (診所)
-                            '#fbbf24', // 淺琥珀 (地區)
-                            '#94a3b8', // 中灰 (學校)
-                            '#e2e8f0'  // 淺灰 (其他)
+                            '#003566', // 冷色 (院內)
+                            '#fca311', // 暖色 1
+                            '#fbbf24', // 暖色 2
+                            '#f97316', // 暖色 3
+                            '#fed7aa', // 暖色 4
+                            '#ea580c'  // 暖色 5
                         ],
                         borderColor: '#FFFFFF',
                         borderWidth: 4,
