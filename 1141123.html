@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 工作坊報名儀表板</title>
+    <title>AI 工作坊報名儀表板 (N=61)</title>
     
     <!-- 載入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -103,7 +103,6 @@
             letter-spacing: 0.05em;
         }
         
-        /* 提醒資料不一致的徽章 */
         .data-badge {
             font-size: 0.75rem;
             background-color: #fef3c7; /* 淺黃 */
@@ -124,52 +123,50 @@
             </h1>
         </header>
 
-        <!-- KPI 區 (依據 分組名單) -->
+        <!-- KPI 區 (依據 分組名單 N=61) -->
         <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="bg-morandi-blue cinematic-mask p-6 text-white">
                 <div class="flex justify-between items-center">
                     <h2 class="text-lg font-semibold opacity-80">總報名人數</h2>
-                    <!-- 更新：資料來源統一 -->
-                    <span class="data-badge" style="background-color: #A7B5BD; color: #fff;">來源: 分組名單</span>
+                    <!-- 更新：資料來源 N=61 -->
+                    <span class="data-badge" style="background-color: #A7B5BD; color: #fff;">來源: 分組名單 (N=61)</span>
                 </div>
-                <!-- 更新：使用 N=63 -->
-                <p id="kpi-total" class="text-4xl font-bold mt-2">63</p>
+                <!-- 更新：使用 N=61 -->
+                <p id="kpi-total" class="text-4xl font-bold mt-2">61</p>
             </div>
             <div class="bg-morandi-gold cinematic-mask p-6 text-morandi-dark">
                 <h2 class="text-lg font-semibold opacity-80">院外人員</h2>
-                <!-- 更新：使用 N=19 -->
-                <p id="kpi-external" class="text-4xl font-bold mt-2">19</p>
+                <!-- 更新：使用 N=21 -->
+                <p id="kpi-external" class="text-4xl font-bold mt-2">21</p>
             </div>
             <div class="bg-morandi-warm-gray cinematic-mask p-6 text-morandi-dark">
                 <h2 class="text-lg font-semibold opacity-80">奇美醫院同仁</h2>
-                <!-- 更新：使用 N=44 -->
-                <p id="kpi-internal" class="text-4xl font-bold mt-2">44</p>
+                <!-- 更新：使用 N=40 -->
+                <p id="kpi-internal" class="text-4xl font-bold mt-2">40</p>
             </div>
         </section>
 
         <!-- 
-          * ---------------------------------------------------
-          * 新增：學員背景分析 (依據我們的分析結果)
-          * 資訊背景: 6
-          * 臨床人員: 41
-          * 非臨床人員: 22
-          * ---------------------------------------------------
+         * ---------------------------------------------------
+         * 更新：學員背景分析 (依據 N=61 職類分析)
+         * 資訊: 5, 臨床: 24, 非臨床: 32
+         * ---------------------------------------------------
         -->
         <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-morandi-gold cinematic-mask p-6 text-morandi-dark">
+            <div class="bg-morandi-blue cinematic-mask p-6 text-white">
                 <div class="flex justify-between items-center">
                     <h2 class="text-lg font-semibold opacity-80">資訊背景人員</h2>
-                    <span class="data-badge" style="background-color: #CBB9A8; color: #5a5a5a;">分析結果</span>
+                    <span class="data-badge" style="background-color: #A7B5BD; color: #fff;">職類分析</span>
                 </div>
-                <p class="text-4xl font-bold mt-2">6</p>
+                <p id="kpi-it" class="text-4xl font-bold mt-2">5</p>
             </div>
-            <div class="bg-morandi-blue cinematic-mask p-6 text-white">
+            <div class="bg-morandi-gold cinematic-mask p-6 text-morandi-dark">
                 <h2 class="text-lg font-semibold opacity-80">臨床人員</h2>
-                <p class="text-4xl font-bold mt-2">41</p>
+                <p id="kpi-clinical" class="text-4xl font-bold mt-2">24</p>
             </div>
             <div class="bg-morandi-warm-gray cinematic-mask p-6 text-morandi-dark">
                 <h2 class="text-lg font-semibold opacity-80">非臨床人員</h2>
-                <p class="text-4xl font-bold mt-2">22</p>
+                <p id="kpi-nonclinical" class="text-4xl font-bold mt-2">32</p>
             </div>
         </section>
         <!-- 學員背景分析區塊 結束 -->
@@ -178,22 +175,20 @@
         <!-- 圖表區 (地圖 & 佔比) -->
         <section class="grid grid-cols-1 lg:grid-cols-5 gap-6">
             
-            <!-- 地圖 (更新：依據 分組名單 N=19 院外人員) -->
+            <!-- 地圖 (更新：依據 N=21 院外人員) -->
             <div class="lg:col-span-3 bg-white cinematic-mask p-4 md:p-6">
                 <h2 class="text-xl font-bold mb-1">院外人員地理分佈</h2>
-                <!-- 更新：移除例外說明，改為顯示 N=19 (18/19) -->
-                <p class="text-sm opacity-70 mb-4">(來源: 分組名單, N=19, 標記 18/19 人)</p>
-
-                <!-- 移除：地理分佈摘要 (因為地圖已統一) -->
+                <!-- 更新：使用 N=21 (動態更新) -->
+                <p id="map-subtitle" class="text-sm opacity-70 mb-4">(來源: 院外人員, N=21, 標記 20/21 人)</p>
                 
-                <div id="map" class="mt-0"></div> <!-- 移除 mt-6 -->
+                <div id="map" class="mt-0"></div>
             </div>
 
-            <!-- 環圈圖 (依據 分組名單) -->
+            <!-- 環圈圖 (依據 N=61) -->
             <div class="lg:col-span-2 bg-white cinematic-mask p-4 md:p-6">
                 <h2 class="text-xl font-bold mb-1">報名身份佔比</h2>
-                <!-- 更新：使用分組名單 N=63 -->
-                <p class="text-sm opacity-70 mb-4">(來源: 分組名單, N=63)</p>
+                <!-- 更新：使用 N=61 -->
+                <p class="text-sm opacity-70 mb-4">(來源: 分組名單, N=61)</p>
                 <div id="chart-container">
                     <canvas id="identityChart"></canvas>
                 </div>
@@ -201,21 +196,17 @@
 
         </section>
         
-        <!-- 新增：分組長條圖 (依據 分組名單) -->
+        <!-- 更新：分組長條圖 (依據 N=61 職類分析) -->
         <section class="bg-white cinematic-mask p-4 md:p-6">
              <div class="flex justify-between items-center mb-1">
-                 <h2 class="text-xl font-bold">各組成員結構</h2>
-                 <!-- 
-                   * ---------------------------------------------------
-                   * 階段四：體驗改善
-                   * 修正 N=66 -> N=63，確保數據一致性
-                   * ---------------------------------------------------
-                 -->
-                 <span class="data-badge">來源: 分組名單 (N=63)</span>
+                 <!-- 更新：標題 -->
+                <h2 class="text-xl font-bold">各組成員職類結構</h2>
+                <!-- 更新：N=61 -->
+                <span class="data-badge">來源: 分組名單 (N=61)</span>
              </div>
-             <!-- 更新：移除說明文字 -->
+            <!-- 更新：說明文字 -->
             <p class="text-sm opacity-70 mb-4">
-                顯示 N=63 位成員在各組的身份結構。
+                顯示 N=61 位成員在各組的「資訊」、「臨床」、「非臨床」職類結構。
             </p>
             <div id="group-chart-container">
                 <canvas id="groupChart"></canvas>
@@ -229,42 +220,50 @@
         // 階段三：模組化元件 (資料處理與圖表邏輯)
         // ---------------------------------------------------
 
-        // ----- (重大更新) 資料來源：單一事實來源 (N=63) -----
-        // 模擬解析 CSV 後的資料結構
-        const finalGroupData = {
-            totalExternal: 19,
-            totalInternal: 44,
-            groupLabels: ["第一組", "第二組", "第三組", "第四組", "第五組", "第六組(貓頭鷹)", "第七組(貓頭鷹)"],
-            // 各組院外人數
-            groupExternalCounts: [2, 2, 3, 3, 3, 3, 3],
-            // 各組院內人數
-            groupInternalCounts: [7, 7, 6, 6, 6, 6, 6],
-            // 院外人員詳細名單 (N=19)
-            externalParticipants: [
-                { group: "第一組", unit: "李俊杰診所" },
-                { group: "第一組", unit: "德幼小兒科" },
-                { group: "第二組", unit: "大林慈濟醫院" }, // 簡化
-                { group: "第二組", unit: "復華耳鼻喉科診所" },
-                { group: "第三組", unit: "高雄榮民總醫院" }, // 簡化
-                { group: "第三組", unit: "晉慶眼科診所" },
-                { group: "第三組", unit: "三愛診所" },
-                { group: "第四組", unit: "中山大學" }, // 簡化
-                { group: "第四組", unit: "中山大學" }, // 簡化
-                { group: "第四組", unit: "黃清相診所" },
-                { group: "第五組", unit: "高雄醫學大學" },
-                { group: "第五組", unit: "高雄醫學大學" },
-                { group: "第五組", unit: "正信診所" },
-                { group: "第六組(貓頭鷹)", unit: "大林慈濟醫院" }, // 簡化
-                { group: "第六組(貓頭鷹)", unit: "大林慈濟醫院" }, // 簡化
-                { group: "第六組(貓頭鷹)", unit: "寶建醫院" },
-                { group: "第七組(貓頭鷹)", unit: "成大醫院" }, // 簡化
-                { group: "第七組(貓頭鷹)", unit: "大林慈濟醫院" }, // 簡化
-                { group: "第七組(貓頭鷹)", unit: "歐洲工商管理學院" }, // 無法定位
-            ]
+        // ----- (重大更新) 資料來源：單一事實來源 (N=61) -----
+        // 由 Python 腳本分析產生的最終數據
+        const finalDashboardData = {
+            "totalCount": 61,
+            "totalExternal": 21,
+            "totalInternal": 40,
+            "roleKpi": {
+                "it": 5,
+                "clinical": 24,
+                "nonClinical": 32
+            },
+            "externalParticipantsList": [
+                {"group": "第一組", "unit": "李俊杰診所"},
+                {"group": "第一組", "unit": "德幼小兒科"},
+                {"group": "第二組", "unit": "大林慈濟醫院院長室醫院發展組"},
+                {"group": "第二組", "unit": "復華耳鼻喉科診所"},
+                {"group": "第三組", "unit": "高雄榮民總醫院教學研究部"},
+                {"group": "第三組", "unit": "晉慶眼科診所"},
+                {"group": "第三組", "unit": "歐洲工商管理學院"},
+                {"group": "第四組", "unit": "中山大學精準醫學所"},
+                {"group": "第四組", "unit": "中山大學精準醫學所"},
+                {"group": "第四組", "unit": "黃清相診所"},
+                {"group": "第五組", "unit": "高雄醫學大學醫學系"},
+                {"group": "第五組", "unit": "高雄醫學大學醫學系"},
+                {"group": "第五組", "unit": "正信診所"},
+                {"group": "第六組(貓頭鷹)", "unit": "大林慈濟醫院教學部"},
+                {"group": "第六組(貓頭鷹)", "unit": "大林慈濟醫院教學部"},
+                {"group": "第六組(貓頭鷹)", "unit": "三愛診所"},
+                {"group": "第六組(貓頭鷹)", "unit": "國光生物科技股份有限公司"},
+                {"group": "第七組(貓頭W鷹)", "unit": "成大醫院受試者保護中心"},
+                {"group": "第七組(貓頭鷹)", "unit": "大林慈濟醫院教學部"},
+                {"group": "第七組(貓頭鷹)", "unit": "寶建醫院護理部"},
+                {"group": "第七組(貓頭鷹)", "unit": "樹德科技大學"}
+            ],
+            "groupRoleData": {
+                "labels": ["第一組", "第二組", "第三組", "第四組", "第五組", "第六組(貓頭鷹)", "第七組(貓頭鷹)"],
+                "it": [0, 1, 2, 0, 1, 1, 0],
+                "clinical": [6, 4, 0, 4, 1, 4, 5],
+                "nonClinical": [3, 4, 7, 4, 6, 4, 4]
+            }
         };
         
-        // ----- (更新) 院外人員服務單位與經緯度 (Geocoding) -----
-        // 根據 finalGroupData.externalParticipants 建立
+        // ----- (保留) 院外人員服務單位與經緯度 (Geocoding) -----
+        // 這是我們手動建立的地理編碼字典 (N=13 個地點)
         const externalLocations = {
             "中山大學": { lat: 22.6295, lon: 120.2662, name: "中山大學" },
             "成大醫院": { lat: 22.9996, lon: 120.2223, name: "成大醫院" },
@@ -279,9 +278,11 @@
             "正信診所": { lat: 23.0232, lon: 120.2241, name: "正信診所" },
             "黃清相診所": { lat: 23.0253, lon: 120.2198, name: "黃清相診所" },
             "高雄醫學大學": { lat: 22.6465, lon: 120.3010, name: "高雄醫學大學" },
-            // "歐洲工商管理學院" intentionally omitted from mapping
+            "國光生物科技": { lat: 24.2154, lon: 120.6022, name: "國光生物科技" }, // 新增
+            "樹德科技大學": { lat: 22.7091, lon: 120.3473, name: "樹德科技大學" }  // 新增
+            // "歐洲工商管理學院" 刻意省略 (無法定位)
         };
-
+        
         // ----- Chart.js 莫蘭迪風格全域設定 -----
         Chart.defaults.font.family = "'Noto Sans TC', sans-serif";
         Chart.defaults.color = '#5a5a5a';
@@ -291,7 +292,17 @@
         // ----- DOM 載入後執行 -----
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- 1. 身份佔比圖 (依據 finalGroupData N=63) ---
+            // --- 0. 動態更新所有 KPI 數字 ---
+            document.getElementById('kpi-total').textContent = finalDashboardData.totalCount;
+            document.getElementById('kpi-external').textContent = finalDashboardData.totalExternal;
+            document.getElementById('kpi-internal').textContent = finalDashboardData.totalInternal;
+            
+            document.getElementById('kpi-it').textContent = finalDashboardData.roleKpi.it;
+            document.getElementById('kpi-clinical').textContent = finalDashboardData.roleKpi.clinical;
+            document.getElementById('kpi-nonclinical').textContent = finalDashboardData.roleKpi.nonClinical;
+
+            
+            // --- 1. 身份佔比圖 (依據 N=61) ---
             const ctxIdentity = document.getElementById('identityChart').getContext('2d');
             new Chart(ctxIdentity, {
                 type: 'doughnut',
@@ -299,8 +310,8 @@
                     labels: ['院外人員', '奇美醫院同仁'],
                     datasets: [{
                         label: '報名身份',
-                        // 更新：使用 N=63 的資料
-                        data: [finalGroupData.totalExternal, finalGroupData.totalInternal], 
+                        // 更新：使用 N=61 的資料
+                        data: [finalDashboardData.totalExternal, finalDashboardData.totalInternal], 
                         backgroundColor: [
                             '#CBB9A8', // 駝金
                             '#B6AFA3', // 暖灰
@@ -316,7 +327,7 @@
                 }
             });
 
-            // --- 2. 地理分佈圖 (依據 finalGroupData N=19 院外人員) ---
+            // --- 2. 地理分佈圖 (依據 N=21 院外人員) ---
             const map = L.map('map').setView([23.1, 120.3], 9); 
             L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -329,18 +340,39 @@
                 iconSize: [20, 20]
             });
 
-            // (更新) 處理 N=19 的資料
+            // (更新) 處理 N=21 的資料，並使用模糊比對
             const locationsToMark = {};
-            finalGroupData.externalParticipants.forEach(person => {
-                const locationInfo = externalLocations[person.unit];
+            let mappedCount = 0;
+            const totalExternal = finalDashboardData.totalExternal;
+            const locationKeys = Object.keys(externalLocations);
+
+            // 輔助函式：比對 'unit' 字串是否包含 'externalLocations' 的任一 key
+            function findLocationInfo(unitString) {
+                for (const key of locationKeys) {
+                    if (unitString.includes(key)) {
+                        return externalLocations[key];
+                    }
+                }
+                return null; // 找不到
+            }
+
+            finalDashboardData.externalParticipantsList.forEach(person => {
+                const locationInfo = findLocationInfo(person.unit);
+                
                 if (locationInfo) {
+                    mappedCount++; // 成功 mapping 的人數
                     const geoKey = `${locationInfo.lat},${locationInfo.lon}`;
                     if (!locationsToMark[geoKey]) {
                         locationsToMark[geoKey] = { info: locationInfo, count: 0 };
                     }
                     locationsToMark[geoKey].count++;
                 }
+                // '歐洲工商管理學院' 等找不到的會被自動跳過
             });
+
+            // 動態更新地圖副標題
+            const subtitleEl = document.getElementById('map-subtitle');
+            subtitleEl.textContent = `(來源: 院外人員, N=${totalExternal}, 標記 ${mappedCount}/${totalExternal} 人)`;
 
             Object.values(locationsToMark).forEach(loc => {
                 const popupContent = `
@@ -354,21 +386,26 @@
                     .bindPopup(popupContent);
             });
 
-            // --- 3. 新增：分組長條圖 (依據 finalGroupData N=63) ---
+            // --- 3. 更新：分組長條圖 (依據 N=61 職類分析) ---
             const ctxGroup = document.getElementById('groupChart').getContext('2d');
             new Chart(ctxGroup, {
                 type: 'bar',
                 data: {
-                    labels: finalGroupData.groupLabels,
+                    labels: finalDashboardData.groupRoleData.labels,
                     datasets: [
                         {
-                            label: '院外人員',
-                            data: finalGroupData.groupExternalCounts,
+                            label: '資訊',
+                            data: finalDashboardData.groupRoleData.it,
+                            backgroundColor: '#A7B5BD', // 灰藍
+                        },
+                        {
+                            label: '臨床',
+                            data: finalDashboardData.groupRoleData.clinical,
                             backgroundColor: '#CBB9A8', // 駝金
                         },
                         {
-                            label: '奇美醫院同仁',
-                            data: finalGroupData.groupInternalCounts,
+                            label: '非臨床',
+                            data: finalDashboardData.groupRoleData.nonClinical,
                             backgroundColor: '#B6AFA3', // 暖灰
                         }
                     ]
@@ -388,6 +425,7 @@
                     plugins: {
                         tooltip: {
                             callbacks: {
+                                // 保留總計功能
                                 footer: function(tooltipItems) {
                                     let sum = 0;
                                     tooltipItems.forEach(function(tooltipItem) {
