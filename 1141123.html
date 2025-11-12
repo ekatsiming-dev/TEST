@@ -189,18 +189,15 @@
             <!-- 右側圖表 (垂直堆疊) -->
             <div class="lg:col-span-2 space-y-6">
                 
-                <!-- 環圈圖 (依據 N=61) -->
+                <!-- (合併) 全體人員背景分析 -->
                 <div class="bg-white cinematic-mask p-4 md:p-6">
-                    <h2 class="text-xl font-bold mb-1">報名身份佔比</h2>
-                    <!-- 更新：使用 N=61 -->
+                    <h2 class="text-xl font-bold mb-1">全體人員背景分析</h2>
                     <p class="text-sm opacity-70 mb-4">(來源: 分組名單, N=61)</p>
-                    <!-- 更新：調整高度以匹配地圖 -->
-                    <div id="identity-chart-container" style="height: 460px;" class="flex items-center justify-center">
-                        <canvas id="identityChart"></canvas>
+                    <!-- (更新) 調整高度以匹配地圖 -->
+                    <div id="combined-analysis-chart-container" style="height: 460px;" class="flex items-center justify-center">
+                        <canvas id="combinedAnalysisChart"></canvas>
                     </div>
                 </div>
-
-                <!-- 移除：決策者 vs 執行者 環圈圖 -->
 
             </div>
 
@@ -276,6 +273,20 @@
                 "it": [0, 1, 2, 0, 1, 1, 0],
                 "clinical": [6, 4, 0, 4, 1, 4, 5],
                 "nonClinical": [3, 4, 7, 4, 6, 4, 4]
+            },
+            
+            /* (新增) 院外人員分析 */
+            "externalAnalysis": {
+                "byType": {
+                    "醫院": 14,
+                    "學校": 6,
+                    "其他": 1
+                },
+                "byHospitalLevel": {
+                    "醫學中心": 6,
+                    "診所": 7,
+                    "地區醫院": 1
+                }
             }
         };
         
@@ -315,31 +326,7 @@
             document.getElementById('kpi-external').textContent = finalDashboardData.totalExternal;
             document.getElementById('kpi-internal').textContent = finalDashboardData.totalInternal;
             
-            // --- 1. 身份佔比圖 (依據 N=61) ---
-            const ctxIdentity = document.getElementById('identityChart').getContext('2d');
-            new Chart(ctxIdentity, {
-                type: 'doughnut',
-                data: {
-                    labels: ['院外人員', '奇美醫院同仁'],
-                    datasets: [{
-                        label: '報名身份',
-                        data: [finalDashboardData.totalExternal, finalDashboardData.totalInternal], 
-                        backgroundColor: [
-                            '#CBB9A8', // 駝金
-                            '#B6AFA3', // 暖灰
-                        ],
-                        borderColor: '#FFFFFF',
-                        borderWidth: 4,
-                        hoverOffset: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-
-            // --- 2. 地理分佈圖 (依據 N=61 全體人員) ---
+            // --- 1. 地理分佈圖 (依據 N=61 全體人員) ---
             const map = L.map('map').setView([23.1, 120.3], 9); 
             L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -485,7 +472,7 @@
                     .bindPopup(popupContent);
             });
 
-            // --- 3. 更新：分組長條圖 (依據 N=61 職類分析) ---
+            // --- 2. 更新：分組長條圖 (依據 N=61 職類分析) ---
             const ctxGroup = document.getElementById('groupChart').getContext('2d');
             new Chart(ctxGroup, {
                 type: 'bar',
@@ -538,8 +525,63 @@
                 }
             });
 
-            // --- 4. 移除：決策者 vs 執行者 ---
-            // (此區塊 JavaScript 已被刪除)
+            // --- (移除) 院外人員類別圖 ---
+            
+            // --- (移除) 院外醫院層級圖 ---
+
+            // --- 3. (合併) 全體人員背景分析圖 (N=61) ---
+            const ctxCombined = document.getElementById('combinedAnalysisChart').getContext('2d');
+            new Chart(ctxCombined, {
+                type: 'doughnut',
+                data: {
+                    labels: ['院內同仁', '院外-醫學中心', '院外-診所', '院外-地區醫院', '院外-學校', '院外-其他'],
+                    datasets: [{
+                        label: '背景分析',
+                        data: [
+                            finalDashboardData.totalInternal,
+                            finalDashboardData.externalAnalysis.byHospitalLevel.醫學中心,
+                            finalDashboardData.externalAnalysis.byHospitalLevel.診所,
+                            finalDashboardData.externalAnalysis.byHospitalLevel.地區醫院,
+                            finalDashboardData.externalAnalysis.byType.學校,
+                            finalDashboardData.externalAnalysis.byType.其他
+                        ],
+                        backgroundColor: [
+                            '#003566', // 亮藍 (院內)
+                            '#D87B6C', // 陶土紅 (醫中)
+                            '#B6AFA3', // 暖灰 (診所)
+                            '#A7B5BD', // 灰藍 (地區)
+                            '#CBB9A8', // 駝金 (學校)
+                            '#D9C8B4'  // 霧米 (其他)
+                        ],
+                        borderColor: '#FFFFFF',
+                        borderWidth: 4,
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        const total = context.chart.getDatasetMeta(0).total;
+                                        const value = context.parsed;
+                                        const percentage = ((value / total) * 100).toFixed(1) + '%';
+                                        label += `${value} 人 (${percentage})`;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
 
         });
 
