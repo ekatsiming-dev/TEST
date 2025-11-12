@@ -68,12 +68,7 @@
             z-index: 5;
         }
         
-        #chart-container {
-            height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        /* 移除固定的 chart-container 高度，改用 inline style */
         
         #group-chart-container {
              height: 450px;
@@ -148,30 +143,10 @@
 
         <!-- 
          * ---------------------------------------------------
-         * 更新：學員背景分析 (依據 N=61 職類分析)
-         * 資訊: 5, 臨床: 24, 非臨床: 32
+         * 移除：學員背景分析 (依據 N=61 職類分析)
          * ---------------------------------------------------
         -->
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-morandi-blue cinematic-mask p-6 text-white">
-                <div class="flex justify-between items-center">
-                    <h2 class="text-lg font-semibold opacity-80">資訊背景人員</h2>
-                    <span class="data-badge" style="background-color: #A7B5BD; color: #fff;">職類分析</span>
-                </div>
-                <p id="kpi-it" class="text-4xl font-bold mt-2">5</p>
-            </div>
-            <div class="bg-morandi-gold cinematic-mask p-6 text-morandi-dark">
-                <h2 class="text-lg font-semibold opacity-80">臨床人員</h2>
-                <p id="kpi-clinical" class="text-4xl font-bold mt-2">24</p>
-            </div>
-            <div class="bg-morandi-warm-gray cinematic-mask p-6 text-morandi-dark">
-                <h2 class="text-lg font-semibold opacity-80">非臨床人員</h2>
-                <p id="kpi-nonclinical" class="text-4xl font-bold mt-2">32</p>
-            </div>
-        </section>
-        <!-- 學員背景分析區塊 結束 -->
-
-
+        
         <!-- 圖表區 (地圖 & 佔比) -->
         <section class="grid grid-cols-1 lg:grid-cols-5 gap-6">
             
@@ -184,14 +159,31 @@
                 <div id="map" class="mt-0"></div>
             </div>
 
-            <!-- 環圈圖 (依據 N=61) -->
-            <div class="lg:col-span-2 bg-white cinematic-mask p-4 md:p-6">
-                <h2 class="text-xl font-bold mb-1">報名身份佔比</h2>
-                <!-- 更新：使用 N=61 -->
-                <p class="text-sm opacity-70 mb-4">(來源: 分組名單, N=61)</p>
-                <div id="chart-container">
-                    <canvas id="identityChart"></canvas>
+            <!-- 右側圖表 (垂直堆疊) -->
+            <div class="lg:col-span-2 space-y-6">
+                
+                <!-- 環圈圖 (依據 N=61) -->
+                <div class="bg-white cinematic-mask p-4 md:p-6">
+                    <h2 class="text-xl font-bold mb-1">報名身份佔比</h2>
+                    <!-- 更新：使用 N=61 -->
+                    <p class="text-sm opacity-70 mb-4">(來源: 分組名單, N=61)</p>
+                    <!-- 更新：調整高度 -->
+                    <div id="identity-chart-container" style="height: 230px;" class="flex items-center justify-center">
+                        <canvas id="identityChart"></canvas>
+                    </div>
                 </div>
+
+                <!-- 新增：決策者 vs 執行者 環圈圖 -->
+                <div class="bg-white cinematic-mask p-4 md:p-6">
+                    <h2 class="text-xl font-bold mb-1">決策者 vs 執行者 (百分比)</h2>
+                    <p class="text-sm opacity-70 mb-4">
+                        (來源: 職稱分析, N=61, <span class="font-bold text-red-600">範例資料</span>)
+                    </p>
+                    <div id="role-chart-container" style="height: 230px;" class="flex items-center justify-center">
+                        <canvas id="decisionMakerChart"></canvas>
+                    </div>
+                </div>
+
             </div>
 
         </section>
@@ -199,7 +191,7 @@
         <!-- 更新：分組長條圖 (依據 N=61 職類分析) -->
         <section class="bg-white cinematic-mask p-4 md:p-6">
              <div class="flex justify-between items-center mb-1">
-                 <!-- 更新：標題 -->
+                <!-- 更新：標題 -->
                 <h2 class="text-xl font-bold">各組成員職類結構</h2>
                 <!-- 更新：N=61 -->
                 <span class="data-badge">來源: 分組名單 (N=61)</span>
@@ -231,6 +223,13 @@
                 "clinical": 24,
                 "nonClinical": 32
             },
+            // ----- 新增：決策者 vs 執行者 (範例資料) -----
+            // !! 請注意：請在此處填入您統計的實際數字
+            "decisionMakerKpi": {
+                "decisionMakers": 15, // 範例資料 (決策者)
+                "implementers": 46  // 範例資料 (執行者)
+            },
+            // ------------------------------------------
             "externalParticipantsList": [
                 {"group": "第一組", "unit": "李俊杰診所"},
                 {"group": "第一組", "unit": "德幼小兒科"},
@@ -293,14 +292,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             
             // --- 0. 動態更新所有 KPI 數字 ---
+            // (移除 roleKpi 的更新)
             document.getElementById('kpi-total').textContent = finalDashboardData.totalCount;
             document.getElementById('kpi-external').textContent = finalDashboardData.totalExternal;
             document.getElementById('kpi-internal').textContent = finalDashboardData.totalInternal;
-            
-            document.getElementById('kpi-it').textContent = finalDashboardData.roleKpi.it;
-            document.getElementById('kpi-clinical').textContent = finalDashboardData.roleKpi.clinical;
-            document.getElementById('kpi-nonclinical').textContent = finalDashboardData.roleKpi.nonClinical;
-
             
             // --- 1. 身份佔比圖 (依據 N=61) ---
             const ctxIdentity = document.getElementById('identityChart').getContext('2d');
@@ -438,6 +433,54 @@
                     }
                 }
             });
+
+            // --- 4. 新增：決策者 vs 執行者 (範例) ---
+            const ctxDecisionMaker = document.getElementById('decisionMakerChart').getContext('2d');
+            new Chart(ctxDecisionMaker, {
+                type: 'doughnut',
+                data: {
+                    labels: ['決策者', '執行者'],
+                    datasets: [{
+                        label: '角色佔比',
+                        data: [
+                            finalDashboardData.decisionMakerKpi.decisionMakers, 
+                            finalDashboardData.decisionMakerKpi.implementers
+                        ],
+                        backgroundColor: [
+                            '#A7B5BD', // 灰藍
+                            '#D9C8B4'  // 霧米
+                        ],
+                        borderColor: '#FFFFFF',
+                        borderWidth: 4,
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                // 新增：顯示百分比
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        const total = context.chart.getDatasetMeta(0).total;
+                                        const value = context.parsed;
+                                        const percentage = ((value / total) * 100).toFixed(1) + '%';
+                                        label += `${value} 人 (${percentage})`;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
         });
 
     </script>
