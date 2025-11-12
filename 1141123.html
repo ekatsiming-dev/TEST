@@ -62,7 +62,8 @@
         }
 
         #map {
-            height: 500px;
+            /* 調整高度以容納地區標籤 */
+            height: 460px; 
             width: 100%;
             border-radius: 0.75rem;
             z-index: 5;
@@ -73,7 +74,7 @@
         #group-chart-container {
              height: 450px;
              padding-top: 20px;
-        }
+         }
 
         .morandi-marker-icon {
             background-color: #D87B6C; /* 維持跳色：陶土紅 */
@@ -154,7 +155,12 @@
             <div class="lg:col-span-3 bg-white cinematic-mask p-4 md:p-6">
                 <h2 class="text-xl font-bold mb-1">院外人員地理分佈</h2>
                 <!-- 更新：使用 N=21 (動態更新) -->
-                <p id="map-subtitle" class="text-sm opacity-70 mb-4">(來源: 院外人員, N=21, 標記 20/21 人)</p>
+                <p id="map-subtitle" class="text-sm opacity-70">(來源: 院外人員, N=21, 標記 20/21 人)</p>
+                
+                <!-- 新增：地區人數統計容器 -->
+                <div id="city-counts-container" class="flex flex-wrap gap-2 mt-2 mb-4">
+                    <!-- 內容將由 JavaScript 動態填入 -->
+                </div>
                 
                 <div id="map" class="mt-0"></div>
             </div>
@@ -263,22 +269,23 @@
         
         // ----- (保留) 院外人員服務單位與經緯度 (Geocoding) -----
         // 這是我們手動建立的地理編碼字典 (N=13 個地點)
+        // ** (更新) 新增 "city" 屬性 **
         const externalLocations = {
-            "中山大學": { lat: 22.6295, lon: 120.2662, name: "中山大學" },
-            "成大醫院": { lat: 22.9996, lon: 120.2223, name: "成大醫院" },
-            "大林慈濟醫院": { lat: 23.5935, lon: 120.4658, name: "大林慈濟醫院" },
-            "高雄榮民總醫院": { lat: 22.6744, lon: 120.3233, name: "高雄榮民總醫院" },
-            "寶建醫院": { lat: 22.6808, lon: 120.4850, name: "寶建醫院" },
-            "李俊杰診所": { lat: 22.9934, lon: 120.2127, name: "李俊杰診所" },
-            "三愛診所": { lat: 23.0033, lon: 120.2163, name: "三愛診所" },
-            "德幼小兒科": { lat: 23.0063, lon: 120.2114, name: "德幼小兒科" },
-            "復華耳鼻喉科診所": { lat: 23.0090, lon: 120.2274, name: "復華耳鼻喉科診所" },
-            "晉慶眼科診所": { lat: 23.0001, lon: 120.2130, name: "晉慶眼科診所" },
-            "正信診所": { lat: 23.0232, lon: 120.2241, name: "正信診所" },
-            "黃清相診所": { lat: 23.0253, lon: 120.2198, name: "黃清相診所" },
-            "高雄醫學大學": { lat: 22.6465, lon: 120.3010, name: "高雄醫學大學" },
-            "國光生物科技": { lat: 24.2154, lon: 120.6022, name: "國光生物科技" }, // 新增
-            "樹德科技大學": { lat: 22.7091, lon: 120.3473, name: "樹德科技大學" }  // 新增
+            "中山大學": { lat: 22.6295, lon: 120.2662, name: "中山大學", city: "高雄市" },
+            "成大醫院": { lat: 22.9996, lon: 120.2223, name: "成大醫院", city: "台南市" },
+            "大林慈濟醫院": { lat: 23.5935, lon: 120.4658, name: "大林慈濟醫院", city: "嘉義縣" },
+            "高雄榮民總醫院": { lat: 22.6744, lon: 120.3233, name: "高雄榮民總醫院", city: "高雄市" },
+            "寶建醫院": { lat: 22.6808, lon: 120.4850, name: "寶建醫院", city: "屏東縣" },
+            "李俊杰診所": { lat: 22.9934, lon: 120.2127, name: "李俊杰診所", city: "台南市" },
+            "三愛診所": { lat: 23.0033, lon: 120.2163, name: "三愛診所", city: "台南市" },
+            "德幼小兒科": { lat: 23.0063, lon: 120.2114, name: "德幼小兒科", city: "台南市" },
+            "復華耳鼻喉科診所": { lat: 23.0090, lon: 120.2274, name: "復華耳鼻喉科診所", city: "台南市" },
+            "晉慶眼科診所": { lat: 23.0001, lon: 120.2130, name: "晉慶眼科診所", city: "台南市" },
+            "正信診所": { lat: 23.0232, lon: 120.2241, name: "正信診所", city: "台南市" },
+            "黃清相診所": { lat: 23.0253, lon: 120.2198, name: "黃清相診所", city: "台南市" },
+            "高雄醫學大學": { lat: 22.6465, lon: 120.3010, name: "高雄醫學大學", city: "高雄市" },
+            "國光生物科技": { lat: 24.2154, lon: 120.6022, name: "國光生物科技", city: "台中市" }, // 新增
+            "樹德科技大學": { lat: 22.7091, lon: 120.3473, name: "樹德科技大學", city: "高雄市" }  // 新增
             // "歐洲工商管理學院" 刻意省略 (無法定位)
         };
         
@@ -337,6 +344,7 @@
 
             // (更新) 處理 N=21 的資料，並使用模糊比對
             const locationsToMark = {};
+            const cityCounts = {}; // ** (新增) 用於統計各地區人數 **
             let mappedCount = 0;
             const totalExternal = finalDashboardData.totalExternal;
             const locationKeys = Object.keys(externalLocations);
@@ -361,6 +369,13 @@
                         locationsToMark[geoKey] = { info: locationInfo, count: 0 };
                     }
                     locationsToMark[geoKey].count++;
+
+                    // ** (新增) 開始統計地區人數 **
+                    const city = locationInfo.city;
+                    if (city) {
+                        cityCounts[city] = (cityCounts[city] || 0) + 1;
+                    }
+                    // ** (新增) 統計結束 **
                 }
                 // '歐洲工商管理學院' 等找不到的會被自動跳過
             });
@@ -368,6 +383,24 @@
             // 動態更新地圖副標題
             const subtitleEl = document.getElementById('map-subtitle');
             subtitleEl.textContent = `(來源: 院外人員, N=${totalExternal}, 標記 ${mappedCount}/${totalExternal} 人)`;
+
+            // ** (新增) 渲染地區人數標籤 **
+            const cityContainer = document.getElementById('city-counts-container');
+            cityContainer.innerHTML = ''; // 清空
+
+            // 依人數由多到少排序
+            const sortedCities = Object.entries(cityCounts).sort((a, b) => b[1] - a[1]); 
+
+            for (const [city, count] of sortedCities) {
+                const badge = document.createElement('span');
+                badge.className = 'data-badge'; // 重複使用 data-badge 樣式
+                badge.style.backgroundColor = '#B6AFA3'; // 使用暖灰色
+                badge.style.color = '#ffffff'; // 使用白色文字
+                badge.textContent = `${city} ${count} 人`;
+                cityContainer.appendChild(badge);
+            }
+            // ** (新增) 渲染結束 **
+
 
             Object.values(locationsToMark).forEach(loc => {
                 const popupContent = `
