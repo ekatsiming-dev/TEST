@@ -23,23 +23,23 @@
     <style>
         /* * ---------------------------------------------------
          * 階段一：設計風格指南 (Style Guide)
-         * 風格：電影風格 × 莫蘭迪色 × 遮罩效果
-         * 色彩：霧米 #D9C8B4, 灰藍 #A7B5BD, 駝金 #CBB9A8, 暖灰 #B6AFA3
+         * 風格：專業品牌風格
+         * 色彩：主色 #003566, 跳色 #fca311, 強調 #fef9c3, 基底 #f8fafc
          * 字體：Noto Sans TC
          * ---------------------------------------------------
          */
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background-color: #D9C8B4; /* 霧米 */
+            background-color: #f8fafc; /* (更新) 基底 */
         }
 
-        .bg-morandi-base { background-color: #D9C8B4; }
-        .bg-morandi-blue { background-color: #A7B5BD; }
-        .bg-morandi-gold { background-color: #CBB9A8; }
-        .bg-morandi-warm-gray { background-color: #B6AFA3; }
+        .bg-brand-base { background-color: #f8fafc; }
+        .bg-brand-main { background-color: #003566; }
+        .bg-brand-accent { background-color: #fca311; }
+        .bg-brand-highlight { background-color: #fef9c3; }
         
-        .text-morandi-dark { color: #5a5a5a; }
-        .text-morandi-light { color: #f0f0f0; }
+        .text-brand-dark { color: #1f2937; } /* (更新) slate-800 */
+        .text-brand-light { color: #f8fafc; }
 
         .cinematic-mask {
             position: relative;
@@ -77,7 +77,7 @@
          }
 
         .morandi-marker-icon {
-            background-color: #D87B6C; /* 維持跳色：陶土紅 (院外) */
+            background-color: #fca311; /* (更新) 跳色 (院外) */
             border: 2px solid #ffffff;
             border-radius: 50%;
             width: 20px;
@@ -97,7 +97,7 @@
         
         /* (新增) 院內標記樣式 */
         .morandi-marker-icon-internal {
-            background-color: #003566; /* (更新) 亮藍色 (院內) */
+            background-color: #003566; /* (不變) 主色 (院內) */
             border: 2px solid #ffffff;
             border-radius: 50%;
             width: 20px;
@@ -129,7 +129,7 @@
         }
     </style>
 </head>
-<body class="bg-morandi-base text-morandi-dark p-4 md:p-8 transition-all duration-500 ease-in-out">
+<body class="bg-brand-base text-brand-dark p-4 md:p-8 transition-all duration-500 ease-in-out">
 
     <div class="max-w-7xl mx-auto space-y-8">
 
@@ -141,21 +141,21 @@
 
         <!-- KPI 區 (依據 分組名單 N=61) -->
         <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-morandi-blue cinematic-mask p-6 text-white">
+            <div class="bg-brand-main cinematic-mask p-6 text-brand-light">
                 <div class="flex justify-between items-center">
                     <h2 class="text-lg font-semibold opacity-80">總報名人數</h2>
                     <!-- 更新：資料來源 N=61 -->
-                    <span class="data-badge" style="background-color: #A7B5BD; color: #fff;">來源: 分組名單 (N=61)</span>
+                    <span class="data-badge" style="background-color: #003566; color: #fff;">來源: 分組名單 (N=61)</span>
                 </div>
                 <!-- 更新：使用 N=61 -->
                 <p id="kpi-total" class="text-4xl font-bold mt-2">61</p>
             </div>
-            <div class="bg-morandi-gold cinematic-mask p-6 text-morandi-dark">
+            <div class="bg-brand-accent cinematic-mask p-6 text-brand-dark">
                 <h2 class="text-lg font-semibold opacity-80">院外人員</h2>
                 <!-- 更新：使用 N=21 -->
                 <p id="kpi-external" class="text-4xl font-bold mt-2">21</p>
             </div>
-            <div class="bg-morandi-warm-gray cinematic-mask p-6 text-morandi-dark">
+            <div class="bg-brand-highlight cinematic-mask p-6 text-brand-dark">
                 <h2 class="text-lg font-semibold opacity-80">奇美醫院同仁</h2>
                 <!-- 更新：使用 N=40 -->
                 <p id="kpi-internal" class="text-4xl font-bold mt-2">40</p>
@@ -209,7 +209,7 @@
                 <!-- 更新：標題 -->
                 <h2 class="text-xl font-bold">各組成員職類結構</h2>
                 <!-- 更新：N=61 -->
-                <span class="data-badge">來源: 分組名單 (N=61)</span>
+                <span class="data-badge" style="background-color: #fef9c3; color: #92400e;">來源: 分組名單 (N=61)</span>
              </div>
             <!-- 更新：說明文字 -->
             <p class="text-sm opacity-70 mb-4">
@@ -435,8 +435,8 @@
                     if (counts.external > 0) {
                         const badge = document.createElement('span');
                         badge.className = 'data-badge';
-                        badge.style.backgroundColor = '#B6AFA3';
-                        badge.style.color = '#ffffff';
+                        badge.style.backgroundColor = '#fca311'; /* (更新) 跳色 */
+                        badge.style.color = '#1f2937'; /* (更新) 深色文字 */
                         badge.textContent = `台南市 (院外) ${counts.external} 人`;
                         cityContainer.appendChild(badge);
                     }
@@ -446,8 +446,8 @@
                     if (total > 0) {
                         const badge = document.createElement('span');
                         badge.className = 'data-badge';
-                        badge.style.backgroundColor = '#B6AFA3';
-                        badge.style.color = '#ffffff';
+                        badge.style.backgroundColor = '#fca311'; /* (更新) 跳色 */
+                        badge.style.color = '#1f2937'; /* (更新) 深色文字 */
                         badge.textContent = `${city} ${total} 人`;
                         cityContainer.appendChild(badge); // <-- FIX 1: 補上此行
                     } // <-- FIX 2: 補上 if 的 '}'
@@ -482,17 +482,17 @@
                         {
                             label: '資訊',
                             data: finalDashboardData.groupRoleData.it,
-                            backgroundColor: '#A7B5BD', // 灰藍
+                            backgroundColor: '#003566', // (更新) 主色
                         },
                         {
                             label: '臨床',
                             data: finalDashboardData.groupRoleData.clinical,
-                            backgroundColor: '#CBB9A8', // 駝金
+                            backgroundColor: '#fca311', // (更新) 跳色
                         },
                         {
                             label: '非臨床',
                             data: finalDashboardData.groupRoleData.nonClinical,
-                            backgroundColor: '#B6AFA3', // 暖灰
+                            backgroundColor: '#94a3b8', // (更新) 灰色
                         }
                     ]
                 },
@@ -547,11 +547,11 @@
                         ],
                         backgroundColor: [
                             '#003566', // 亮藍 (院內)
-                            '#D87B6C', // 陶土紅 (醫中)
-                            '#B6AFA3', // 暖灰 (診所)
-                            '#A7B5BD', // 灰藍 (地區)
-                            '#CBB9A8', // 駝金 (學校)
-                            '#D9C8B4'  // 霧米 (其他)
+                            '#fca311', // 琥珀 (醫中)
+                            '#60a5fa', // 淺藍 (診所)
+                            '#fbbf24', // 淺琥珀 (地區)
+                            '#94a3b8', // 中灰 (學校)
+                            '#e2e8f0'  // 淺灰 (其他)
                         ],
                         borderColor: '#FFFFFF',
                         borderWidth: 4,
