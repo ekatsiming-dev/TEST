@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 工作坊報名儀表板</title>
+    
+    <!-- 載入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 載入 Leaflet.js (地圖) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <!-- 載入 Chart.js (圖表) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- 載入 Google Fonts (Noto Sans TC) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* * ---------------------------------------------------
+         * 階段一：設計風格指南 (Style Guide)
+         * 風格：電影風格 × 莫蘭迪色 × 遮罩效果
+         * 色彩：霧米 #D9C8B4, 灰藍 #A7B5BD, 駝金 #CBB9A8, 暖灰 #B6AFA3
+         * 字體：Noto Sans TC
+         * ---------------------------------------------------
+         */
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #D9C8B4; /* 霧米 */
+        }
+
+        .bg-morandi-base { background-color: #D9C8B4; }
+        .bg-morandi-blue { background-color: #A7B5BD; }
+        .bg-morandi-gold { background-color: #CBB9A8; }
+        .bg-morandi-warm-gray { background-color: #B6AFA3; }
+        
+        .text-morandi-dark { color: #5a5a5a; }
+        .text-morandi-light { color: #f0f0f0; }
+
+        .cinematic-mask {
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+        
+        .cinematic-mask::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+            z-index: 1;
+            border-radius: 0.75rem;
+        }
+
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: 0.75rem;
+            z-index: 5;
+        }
+        
+        #chart-container {
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #group-chart-container {
+             height: 450px;
+             padding-top: 20px;
+        }
+
+        .morandi-marker-icon {
+            background-color: #D87B6C; /* 維持跳色：陶土紅 */
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .morandi-marker-icon::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background-color: #ffffff;
+            border-radius: 50%;
+        }
+
+        .cinematic-title {
+            letter-spacing: 0.05em;
+        }
+        
+        /* 提醒資料不一致的徽章 */
+        .data-badge {
+            font-size: 0.75rem;
+            background-color: #fef3c7; /* 淺黃 */
+            color: #92400e; /* 深黃褐 */
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-morandi-base text-morandi-dark p-4 md:p-8 transition-all duration-500 ease-in-out">
+
+    <div class="max-w-7xl mx-auto space-y-8">
+
+        <header class="text-center p-6">
+            <h1 class="text-3xl md:text-4xl font-bold cinematic-title">
+                1141123 AI 工作坊 報名儀表板
+            </h1>
+        </header>
+
+        <!-- KPI 區 (依據 分組名單) -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-morandi-blue cinematic-mask p-6 text-white">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-lg font-semibold opacity-80">總報名人數</h2>
+                    <!-- 更新：資料來源統一 -->
+                    <span class="data-badge" style="background-color: #A7B5BD; color: #fff;">來源: 分組名單</span>
+                </div>
+                <!-- 更新：使用 N=63 -->
+                <p id="kpi-total" class="text-4xl font-bold mt-2">63</p>
+            </div>
+            <div class="bg-morandi-gold cinematic-mask p-6 text-morandi-dark">
+                <h2 class="text-lg font-semibold opacity-80">院外人員</h2>
+                <!-- 更新：使用 N=19 -->
+                <p id="kpi-external" class="text-4xl font-bold mt-2">19</p>
+            </div>
+            <div class="bg-morandi-warm-gray cinematic-mask p-6 text-morandi-dark">
+                <h2 class="text-lg font-semibold opacity-80">奇美醫院同仁</h2>
+                <!-- 更新：使用 N=44 -->
+                <p id="kpi-internal" class="text-4xl font-bold mt-2">44</p>
+            </div>
+        </section>
+
+        <!-- 圖表區 (地圖 & 佔比) -->
+        <section class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+            
+            <!-- 地圖 (更新：依據 分組名單 N=19 院外人員) -->
+            <div class="lg:col-span-3 bg-white cinematic-mask p-4 md:p-6">
+                <h2 class="text-xl font-bold mb-1">院外人員地理分佈</h2>
+                <!-- 更新：移除例外說明，改為顯示 N=19 (18/19) -->
+                <p class="text-sm opacity-70 mb-4">(來源: 分組名單, N=19, 標記 18/19 人)</p>
+
+                <!-- 移除：地理分佈摘要 (因為地圖已統一) -->
+                
+                <div id="map" class="mt-0"></div> <!-- 移除 mt-6 -->
+            </div>
+
+            <!-- 環圈圖 (依據 分組名單) -->
+            <div class="lg:col-span-2 bg-white cinematic-mask p-4 md:p-6">
+                <h2 class="text-xl font-bold mb-1">報名身份佔比</h2>
+                <!-- 更新：使用分組名單 N=63 -->
+                <p class="text-sm opacity-70 mb-4">(來源: 分組名單, N=63)</p>
+                <div id="chart-container">
+                    <canvas id="identityChart"></canvas>
+                </div>
+            </div>
+
+        </section>
+        
+        <!-- 新增：分組長條圖 (依據 分組名單) -->
+        <section class="bg-white cinematic-mask p-4 md:p-6">
+             <div class="flex justify-between items-center mb-1">
+                 <h2 class="text-xl font-bold">各組成員結構</h2>
+                 <span class="data-badge">來源: 分組名單 (N=66)</span> <!-- 修正：這裡 N=63 -->
+             </div>
+             <!-- 更新：移除說明文字 -->
+            <p class="text-sm opacity-70 mb-4">
+                顯示 N=63 位成員在各組的身份結構。
+            </p>
+            <div id="group-chart-container">
+                <canvas id="groupChart"></canvas>
+            </div>
+        </section>
+
+    </div>
+
+    <script type="module">
+        // ---------------------------------------------------
+        // 階段三：模組化元件 (資料處理與圖表邏輯)
+        // ---------------------------------------------------
+
+        // ----- (重大更新) 資料來源：單一事實來源 (N=63) -----
+        // 模擬解析 CSV 後的資料結構
+        const finalGroupData = {
+            totalExternal: 19,
+            totalInternal: 44,
+            groupLabels: ["第一組", "第二組", "第三組", "第四組", "第五組", "第六組(貓頭鷹)", "第七組(貓頭鷹)"],
+            // 各組院外人數
+            groupExternalCounts: [2, 2, 3, 3, 3, 3, 3],
+            // 各組院內人數
+            groupInternalCounts: [7, 7, 6, 6, 6, 6, 6],
+            // 院外人員詳細名單 (N=19)
+            externalParticipants: [
+                { group: "第一組", unit: "李俊杰診所" },
+                { group: "第一組", unit: "德幼小兒科" },
+                { group: "第二組", unit: "大林慈濟醫院" }, // 簡化
+                { group: "第二組", unit: "復華耳鼻喉科診所" },
+                { group: "第三組", unit: "高雄榮民總醫院" }, // 簡化
+                { group: "第三組", unit: "晉慶眼科診所" },
+                { group: "第三組", unit: "三愛診所" },
+                { group: "第四組", unit: "中山大學" }, // 簡化
+                { group: "第四組", unit: "中山大學" }, // 簡化
+                { group: "第四組", unit: "黃清相診所" },
+                { group: "第五組", unit: "高雄醫學大學" },
+                { group: "第五組", unit: "高雄醫學大學" },
+                { group: "第五組", unit: "正信診所" },
+                { group: "第六組(貓頭鷹)", unit: "大林慈濟醫院" }, // 簡化
+                { group: "第六組(貓頭鷹)", unit: "大林慈濟醫院" }, // 簡化
+                { group: "第六組(貓頭鷹)", unit: "寶建醫院" },
+                { group: "第七組(貓頭鷹)", unit: "成大醫院" }, // 簡化
+                { group: "第七組(貓頭鷹)", unit: "大林慈濟醫院" }, // 簡化
+                { group: "第七組(貓頭鷹)", unit: "歐洲工商管理學院" }, // 無法定位
+            ]
+        };
+        
+        // ----- (更新) 院外人員服務單位與經緯度 (Geocoding) -----
+        // 根據 finalGroupData.externalParticipants 建立
+        const externalLocations = {
+            "中山大學": { lat: 22.6295, lon: 120.2662, name: "中山大學" },
+            "成大醫院": { lat: 22.9996, lon: 120.2223, name: "成大醫院" },
+            "大林慈濟醫院": { lat: 23.5935, lon: 120.4658, name: "大林慈濟醫院" },
+            "高雄榮民總醫院": { lat: 22.6744, lon: 120.3233, name: "高雄榮民總醫院" },
+            "寶建醫院": { lat: 22.6808, lon: 120.4850, name: "寶建醫院" },
+            "李俊杰診所": { lat: 22.9934, lon: 120.2127, name: "李俊杰診所" },
+            "三愛診所": { lat: 23.0033, lon: 120.2163, name: "三愛診所" },
+            "德幼小兒科": { lat: 23.0063, lon: 120.2114, name: "德幼小兒科" },
+            "復華耳鼻喉科診所": { lat: 23.0090, lon: 120.2274, name: "復華耳鼻喉科診所" },
+            "晉慶眼科診所": { lat: 23.0001, lon: 120.2130, name: "晉慶眼科診所" },
+            "正信診所": { lat: 23.0232, lon: 120.2241, name: "正信診所" },
+            "黃清相診所": { lat: 23.0253, lon: 120.2198, name: "黃清相診所" },
+            "高雄醫學大學": { lat: 22.6465, lon: 120.3010, name: "高雄醫學大學" },
+            // "歐洲工商管理學院" intentionally omitted from mapping
+        };
+
+        // ----- Chart.js 莫蘭迪風格全域設定 -----
+        Chart.defaults.font.family = "'Noto Sans TC', sans-serif";
+        Chart.defaults.color = '#5a5a5a';
+        Chart.defaults.plugins.legend.position = 'bottom';
+        Chart.defaults.plugins.legend.labels.padding = 20;
+
+        // ----- DOM 載入後執行 -----
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. 身份佔比圖 (依據 finalGroupData N=63) ---
+            const ctxIdentity = document.getElementById('identityChart').getContext('2d');
+            new Chart(ctxIdentity, {
+                type: 'doughnut',
+                data: {
+                    labels: ['院外人員', '奇美醫院同仁'],
+                    datasets: [{
+                        label: '報名身份',
+                        // 更新：使用 N=63 的資料
+                        data: [finalGroupData.totalExternal, finalGroupData.totalInternal], 
+                        backgroundColor: [
+                            '#CBB9A8', // 駝金
+                            '#B6AFA3', // 暖灰
+                        ],
+                        borderColor: '#FFFFFF',
+                        borderWidth: 4,
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // --- 2. 地理分佈圖 (依據 finalGroupData N=19 院外人員) ---
+            const map = L.map('map').setView([23.1, 120.3], 9); 
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(map);
+
+            const morandiIcon = L.divIcon({
+                className: 'morandi-marker-icon',
+                iconSize: [20, 20]
+            });
+
+            // (更新) 處理 N=19 的資料
+            const locationsToMark = {};
+            finalGroupData.externalParticipants.forEach(person => {
+                const locationInfo = externalLocations[person.unit];
+                if (locationInfo) {
+                    const geoKey = `${locationInfo.lat},${locationInfo.lon}`;
+                    if (!locationsToMark[geoKey]) {
+                        locationsToMark[geoKey] = { info: locationInfo, count: 0 };
+                    }
+                    locationsToMark[geoKey].count++;
+                }
+            });
+
+            Object.values(locationsToMark).forEach(loc => {
+                const popupContent = `
+                    <div style="font-family: 'Noto Sans TC', sans-serif;">
+                        <strong style="font-size: 1.1em;">${loc.info.name}</strong><br>
+                        報名人數： ${loc.count} 人
+                    </div>
+                `;
+                L.marker([loc.info.lat, loc.info.lon], { icon: morandiIcon })
+                    .addTo(map)
+                    .bindPopup(popupContent);
+            });
+
+            // --- 3. 新增：分組長條圖 (依據 finalGroupData N=63) ---
+            const ctxGroup = document.getElementById('groupChart').getContext('2d');
+            new Chart(ctxGroup, {
+                type: 'bar',
+                data: {
+                    labels: finalGroupData.groupLabels,
+                    datasets: [
+                        {
+                            label: '院外人員',
+                            data: finalGroupData.groupExternalCounts,
+                            backgroundColor: '#CBB9A8', // 駝金
+                        },
+                        {
+                            label: '奇美醫院同仁',
+                            data: finalGroupData.groupInternalCounts,
+                            backgroundColor: '#B6AFA3', // 暖灰
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            stacked: true,
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                footer: function(tooltipItems) {
+                                    let sum = 0;
+                                    tooltipItems.forEach(function(tooltipItem) {
+                                        sum += tooltipItem.parsed.y;
+                                    });
+                                    return '本組總計: ' + sum + ' 人';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
