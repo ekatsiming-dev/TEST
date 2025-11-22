@@ -411,7 +411,7 @@
                                     <div className="bg-white rounded-xl p-5 border border-primary/10 shadow-[0_4px_20px_-5px_rgba(169,68,56,0.15)]">
                                         <h3 className="text-xs font-bold text-primary mb-4 flex items-center uppercase tracking-wider opacity-80 border-b border-gray-100 pb-2">
                                             <Icons.Sprout className="w-4 h-4 mr-2" />
-                                            剩餘需求統計
+                                            總計剩餘需求 (含後續關卡)
                                         </h3>
                                         <div className="space-y-3">
                                             {Object.entries(stageNeeds).map(([flower, amount]) => (
@@ -539,6 +539,7 @@
                 return { totalTasks, doneTasks, activeStageId, currentStageNeeds, totalNeeds };
             }, [completedTasks]);
 
+            // --- Auto-Collapse Logic ---
             useEffect(() => {
                 if(analysis.activeStageId <= STAGE_DATA.length) {
                     setExpandedStages({ [analysis.activeStageId]: true });
@@ -587,7 +588,8 @@
                                             isLocked={isLocked}
                                             expanded={expandedStages[stage.id]}
                                             onToggleExpand={() => toggleStage(stage.id)}
-                                            stageNeeds={isActive ? analysis.currentStageNeeds : null}
+                                            // Change from currentStageNeeds to totalNeeds
+                                            stageNeeds={isActive ? analysis.totalNeeds : null}
                                             flowerPerPetal={flowerPerPetal}
                                             consumptionRate={consumptionRate}
                                         />
