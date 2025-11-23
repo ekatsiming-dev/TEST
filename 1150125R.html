@@ -77,6 +77,17 @@
         input[type="radio"]:checked {
             accent-color: #a94438;
         }
+        
+        /* 禁用狀態樣式 */
+        input[type="radio"]:disabled + span {
+            color: #6b7280; /* Gray-500 */
+            text-decoration: line-through;
+        }
+        label.disabled-option {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: transparent !important;
+        }
 
         /* 載入中動畫 */
         .loading-spinner {
@@ -254,6 +265,10 @@
                     <span class="border-b-2 border-primary pb-2">立即報名</span>
                 </h2>
                 <p class="text-gray-300">請填寫以下資訊完成報名程序</p>
+                <!-- 新增：名額顯示區 -->
+                <p id="quotaDisplay" class="text-sm mt-2 text-accent font-mono hidden">
+                    <i class="fas fa-sync fa-spin mr-1"></i> 檢查名額中...
+                </p>
             </div>
 
             <form id="workshopForm" class="space-y-8 bg-dark p-8 md:p-12 rounded-2xl border border-white/10 shadow-2xl ring-1 ring-white/5">
@@ -334,17 +349,25 @@
                         </div>
                     </div>
 
-                    <!-- 參與方式 -->
+                    <!-- 參與方式 (動態鎖定邏輯區) -->
                     <div class="bg-white/5 p-5 rounded-lg border border-white/10 hover:border-primary/30 transition-colors">
                         <label class="block text-gray-200 mb-3 text-sm font-bold">您預計以何種方式參與？</label>
-                        <div class="flex gap-6">
-                            <label class="flex items-center gap-2 cursor-pointer group">
-                                <input type="radio" name="participation" value="實體參與" required class="w-4 h-4 text-primary focus:ring-primary bg-dark border-gray-500">
-                                <span class="text-gray-300 group-hover:text-primary transition-colors">實體參與</span>
+                        <div class="flex flex-col md:flex-row gap-6">
+                            
+                            <!-- 實體參與選項 (加上ID以便控制) -->
+                            <label id="option-physical" class="flex items-center gap-2 cursor-pointer group p-2 rounded border border-transparent hover:bg-white/5 transition-all">
+                                <input type="radio" id="radio-physical" name="participation" value="實體參與" required class="w-4 h-4 text-primary focus:ring-primary bg-dark border-gray-500">
+                                <span class="text-gray-300 group-hover:text-primary transition-colors font-medium">實體參與</span>
+                                <!-- 額滿標籤 (預設隱藏) -->
+                                <span id="badge-full" class="hidden text-[10px] bg-red-900/80 text-red-200 px-2 py-0.5 rounded ml-2 border border-red-700/50">
+                                    已額滿
+                                </span>
                             </label>
-                            <label class="flex items-center gap-2 cursor-pointer group">
+
+                            <!-- 線上參與選項 -->
+                            <label class="flex items-center gap-2 cursor-pointer group p-2 rounded border border-transparent hover:bg-white/5 transition-all">
                                 <input type="radio" name="participation" value="線上參與" class="w-4 h-4 text-primary focus:ring-primary bg-dark border-gray-500">
-                                <span class="text-gray-300 group-hover:text-primary transition-colors">線上參與</span>
+                                <span class="text-gray-300 group-hover:text-primary transition-colors font-medium">線上參與</span>
                             </label>
                         </div>
                     </div>
@@ -371,7 +394,7 @@
 
                 <!-- Tools & Submit -->
                 <div class="pt-6 flex flex-col gap-4">
-                    <!-- Test Button -->
+                    <!-- Test Button (Visible for Debugging) -->
                     <button type="button" onclick="fillTestData()" class="text-xs text-gray-500 hover:text-primary transition-colors self-end flex items-center gap-1 opacity-50 hover:opacity-100">
                         <i class="fas fa-flask"></i> 填寫測試資料
                     </button>
@@ -418,12 +441,81 @@
 
     <script>
         /* =========================================
-           Google Apps Script 網址 (請確認是否與您部署的相同)
+           Google Apps Script 網址
            ========================================= */
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyW7u8u6nbtZkN-aO9TOUjO5bJrNiEDopul1Zj-rletabkD_L8u2_FwqRQPxWwcrPnZkQ/exec"; 
+        
+        // 設定實體參與名額上限
+        const MAX_PHYSICAL_CAPACITY = 48;
+
+        const form = document.getElementById('workshopForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const modal = document.getElementById('successModal');
+        const modalContent = modal.querySelector('div');
+        const quotaDisplay = document.getElementById('quotaDisplay');
 
         // -----------------------------
-        // 1. 倒數計時邏輯 (活動日期: 2026/01/25 09:00:00)
+        // 0. 檢查名額與鎖定邏輯
+        // -----------------------------
+        function checkQuota() {
+            if (!SCRIPT_URL || SCRIPT_URL.includes("在此處")) return;
+
+            quotaDisplay.classList.remove('hidden');
+            
+            // 加上 timestamp 避免快取
+            const targetUrl = SCRIPT_URL + (SCRIPT_URL.includes('?') ? '&' : '?') + 't=' + new Date().getTime();
+
+            fetch(targetUrl)
+                .then(res => res.json())
+                .then(response => {
+                    if (response.result === 'success') {
+                        const data = response.data;
+                        // 計算實體參與人數
+                        const physicalCount = data.filter(d => d.participation === '實體參與').length;
+                        const remaining = MAX_PHYSICAL_CAPACITY - physicalCount;
+                        
+                        console.log(`目前實體人數: ${physicalCount}, 剩餘: ${remaining}`);
+
+                        if (remaining <= 0) {
+                            // 額滿處理
+                            disablePhysicalOption();
+                            quotaDisplay.innerHTML = `<span class="text-red-400"><i class="fas fa-exclamation-circle"></i> 實體名額已滿 (${physicalCount}/${MAX_PHYSICAL_CAPACITY})</span>`;
+                        } else {
+                            // 尚有名額
+                            quotaDisplay.innerHTML = `<span class="text-green-400"><i class="fas fa-check-circle"></i> 實體名額剩餘: ${remaining} 位</span>`;
+                        }
+                    }
+                })
+                .catch(err => {
+                    console.warn("無法讀取名額資訊", err);
+                    quotaDisplay.innerHTML = `<span class="text-gray-500 text-xs">無法確認即時名額</span>`;
+                });
+        }
+
+        function disablePhysicalOption() {
+            const radio = document.getElementById('radio-physical');
+            const label = document.getElementById('option-physical');
+            const badge = document.getElementById('badge-full');
+
+            if(radio) {
+                radio.disabled = true;
+                radio.checked = false; // 取消選取
+            }
+            if(label) {
+                label.classList.add('disabled-option');
+                label.title = "名額已滿，請選擇線上參與";
+            }
+            if(badge) {
+                badge.classList.remove('hidden');
+            }
+        }
+
+        // 頁面載入時執行檢查
+        document.addEventListener('DOMContentLoaded', checkQuota);
+
+
+        // -----------------------------
+        // 1. 倒數計時邏輯
         // -----------------------------
         function updateCountdown() {
             const eventDate = new Date("2026-01-25T09:00:00").getTime();
@@ -446,18 +538,12 @@
             document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
         }
 
-        // 每秒更新一次
         setInterval(updateCountdown, 1000);
-        updateCountdown(); // 初始化
+        updateCountdown();
 
         // -----------------------------
-        // 2. 表單提交邏輯
+        // 2. 表單提交與測試資料
         // -----------------------------
-        const form = document.getElementById('workshopForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const modal = document.getElementById('successModal');
-        const modalContent = modal.querySelector('div');
-
         function fillTestData() {
             const randomId = Math.floor(Math.random() * 1000);
             document.getElementById('name').value = `測試人員${randomId}`;
@@ -465,7 +551,15 @@
             document.getElementById('jobTitle').value = '住院醫師';
             document.getElementById('category').value = '其他';
             document.querySelector('input[name="isHost"][value="否"]').checked = true;
-            document.querySelector('input[name="participation"][value="線上參與"]').checked = true;
+            
+            // 如果實體沒被鎖住，才隨機選，否則選線上
+            const physicalRadio = document.getElementById('radio-physical');
+            if (physicalRadio && !physicalRadio.disabled) {
+                 document.querySelector('input[name="participation"][value="實體參與"]').checked = true;
+            } else {
+                 document.querySelector('input[name="participation"][value="線上參與"]').checked = true;
+            }
+            
             document.getElementById('email').value = `test${randomId}@example.com`;
             document.getElementById('phone').value = '0900-123-456';
         }
@@ -504,6 +598,8 @@
                 if(data.result === 'success'){
                     showSuccessModal();
                     form.reset();
+                    // 送出成功後重新檢查名額
+                    checkQuota();
                 } else {
                     alert("報名發生錯誤，請稍後再試。\n錯誤訊息: " + data.error);
                 }
