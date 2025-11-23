@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教學訓練計畫主持人工作坊 | 2026</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Noto Sans TC + Playfair Display (for headlines) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#a94438',   // 質感磚紅
+                        accent: '#3a4a61',    // 靜謐灰藍
+                        light: '#f4f1ea',     // 暖調米色
+                        dark: '#0f0f0f',      // 深邃黑
+                        darkLayer: '#1a1a1a', // 稍微亮一點的黑，用於卡片
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=2070&auto=format&fit=crop')", // 醫學/會議意象圖
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 自定義滾動條 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f0f0f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3a4a61;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a94438;
+        }
+
+        /* 玻璃擬態效果 */
+        .glass-panel {
+            background: rgba(58, 74, 97, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(244, 241, 234, 0.1);
+        }
+
+        /* 輸入框聚焦動畫 */
+        .input-group input:focus ~ label,
+        .input-group select:focus ~ label,
+        .input-group input:not(:placeholder-shown) ~ label,
+        .input-group select:valid ~ label {
+            top: -10px;
+            left: 10px;
+            font-size: 0.75rem;
+            color: #a94438;
+            background-color: #0f0f0f;
+            padding: 0 5px;
+        }
+        
+        /* Checkbox/Radio 自定義顏色 */
+        input[type="radio"]:checked {
+            accent-color: #a94438;
+        }
+
+        /* 載入中動畫 */
+        .loading-spinner {
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 3px solid #fff;
+            width: 20px;
+            height: 20px;
+            -webkit-animation: spin 1s linear infinite; /* Safari */
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-dark text-light font-sans selection:bg-primary selection:text-white">
+
+    <!-- 導航列 (極簡) -->
+    <nav class="fixed w-full z-50 px-6 py-4 flex justify-between items-center bg-dark/80 backdrop-blur-md border-b border-white/5">
+        <div class="font-serif text-xl tracking-wider font-bold text-primary">CHIMEI EDU</div>
+        <a href="#register" class="px-6 py-2 border border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 rounded-full text-sm tracking-wide">
+            立即報名
+        </a>
+    </nav>
+
+    <!-- 主視覺 (Hero Section) - 電影感沉浸風格 -->
+    <header class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- 背景圖與遮罩 -->
+        <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center bg-fixed"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-dark/90 via-dark/70 to-dark"></div>
+        
+        <!-- 內容 -->
+        <div class="relative z-10 container mx-auto px-6 text-center mt-10">
+            <span class="inline-block py-1 px-3 border border-accent/50 rounded text-accent text-xs tracking-[0.2em] mb-4 animate-pulse">
+                WORKSHOP 2026
+            </span>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight leading-tight">
+                教學訓練計畫<br>
+                <span class="text-primary font-serif italic">主持人工作坊</span>
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                培育卓越師資，引領醫學教育未來。<br>
+                深入探討教學策略與領導力的專業研習。
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                <a href="#register" class="group relative px-8 py-4 bg-primary text-white rounded overflow-hidden shadow-lg shadow-primary/30 transition-all hover:scale-105">
+                    <span class="relative z-10 font-bold tracking-widest">線上報名</span>
+                    <div class="absolute inset-0 h-full w-full scale-0 rounded transition-all duration-300 group-hover:scale-100 group-hover:bg-red-700"></div>
+                </a>
+                <a href="#details" class="px-8 py-4 border border-light/20 text-light hover:bg-light/10 rounded transition-all">
+                    活動詳情
+                </a>
+            </div>
+        </div>
+
+        <!-- 裝飾線條 -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+            <span class="text-xs tracking-widest">SCROLL</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent"></div>
+        </div>
+    </header>
+
+    <!-- 活動資訊區塊 (Info Section) -->
+    <section id="details" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Date -->
+                <div class="glass-panel p-8 rounded-xl text-center transform hover:-translate-y-2 transition-duration-300">
+                    <div class="w-12 h-12 mx-auto bg-accent/20 rounded-full flex items-center justify-center text-primary mb-4 text-xl">
+                        <i class="far fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">活動日期</h3>
+                    <p class="text-gray-300">2026 年 01 月 25 日</p>
+                    <span class="text-xs text-accent mt-1 block">Sunday</span>
+                </div>
+
+                <!-- Time -->
+                <div class="glass-panel p-8 rounded-xl text-center transform hover:-translate-y-2 transition-duration-300 delay-100">
+                    <div class="w-12 h-12 mx-auto bg-accent/20 rounded-full flex items-center justify-center text-primary mb-4 text-xl">
+                        <i class="far fa-clock"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">活動時間</h3>
+                    <p class="text-gray-300">09:00 - 16:00</p>
+                    <span class="text-xs text-accent mt-1 block">請提前 15 分鐘報到</span>
+                </div>
+
+                <!-- Location -->
+                <div class="glass-panel p-8 rounded-xl text-center transform hover:-translate-y-2 transition-duration-300 delay-200">
+                    <div class="w-12 h-12 mx-auto bg-accent/20 rounded-full flex items-center justify-center text-primary mb-4 text-xl">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">活動地點</h3>
+                    <p class="text-gray-300">奇美醫院 第五醫療大樓</p>
+                    <p class="text-sm text-gray-400 mt-1">6樓 563 會議室</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 報名表單區塊 (Registration Form) -->
+    <section id="register" class="py-20 bg-darkLayer relative">
+        <!-- 背景裝飾 -->
+        <div class="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full filter blur-[100px]"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-accent/10 rounded-full filter blur-[100px]"></div>
+
+        <div class="container mx-auto px-6 max-w-4xl relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">
+                    <span class="border-b-2 border-primary pb-2">立即報名</span>
+                </h2>
+                <p class="text-gray-400">請填寫以下資訊完成報名程序</p>
+            </div>
+
+            <form id="workshopForm" class="space-y-8 bg-dark p-8 md:p-12 rounded-2xl border border-white/5 shadow-2xl">
+                
+                <!-- 第一部分：基本資料 -->
+                <div class="space-y-6">
+                    <h3 class="text-accent text-sm font-bold tracking-widest uppercase mb-6 flex items-center gap-2">
+                        <span class="w-8 h-[1px] bg-accent"></span> 基本資料
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- 姓名 -->
+                        <div class="input-group relative">
+                            <input type="text" id="name" required placeholder=" " 
+                                class="w-full bg-transparent border border-accent/50 rounded px-4 py-3 outline-none focus:border-primary transition-colors text-light">
+                            <label for="name" class="absolute left-4 top-3 text-gray-500 transition-all pointer-events-none">姓名</label>
+                        </div>
+                        
+                        <!-- 機構名 -->
+                        <div class="input-group relative">
+                            <input type="text" id="organization" required placeholder=" " 
+                                class="w-full bg-transparent border border-accent/50 rounded px-4 py-3 outline-none focus:border-primary transition-colors text-light">
+                            <label for="organization" class="absolute left-4 top-3 text-gray-500 transition-all pointer-events-none">機構名稱</label>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                         <!-- 職稱 -->
+                         <div class="input-group relative">
+                            <input type="text" id="jobTitle" required placeholder=" " 
+                                class="w-full bg-transparent border border-accent/50 rounded px-4 py-3 outline-none focus:border-primary transition-colors text-light">
+                            <label for="jobTitle" class="absolute left-4 top-3 text-gray-500 transition-all pointer-events-none">職稱</label>
+                        </div>
+
+                        <!-- 職類 Select -->
+                        <div class="input-group relative">
+                            <select id="category" required class="w-full bg-dark border border-accent/50 rounded px-4 py-3 outline-none focus:border-primary transition-colors text-light appearance-none cursor-pointer">
+                                <option value="" disabled selected></option>
+                                <option value="藥事">藥事</option>
+                                <option value="醫事放射">醫事放射</option>
+                                <option value="醫事檢驗">醫事檢驗</option>
+                                <option value="護理">護理</option>
+                                <option value="營養">營養</option>
+                                <option value="呼吸治療">呼吸治療</option>
+                                <option value="聽力">聽力</option>
+                                <option value="物理治療">物理治療</option>
+                                <option value="職能治療">職能治療</option>
+                                <option value="臨床心理">臨床心理</option>
+                                <option value="語言治療">語言治療</option>
+                                <option value="其他">其他</option>
+                            </select>
+                            <label for="category" class="absolute left-4 top-3 text-gray-500 transition-all pointer-events-none">負責的職類</label>
+                            <div class="absolute right-4 top-4 text-accent pointer-events-none">
+                                <i class="fas fa-chevron-down text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第二部分：參與細節 -->
+                <div class="space-y-6 pt-6 border-t border-white/5">
+                    <h3 class="text-accent text-sm font-bold tracking-widest uppercase mb-6 flex items-center gap-2">
+                        <span class="w-8 h-[1px] bg-accent"></span> 參與調查
+                    </h3>
+
+                    <!-- 是否擔任主持人 -->
+                    <div class="bg-darkLayer/50 p-4 rounded-lg border border-white/5">
+                        <label class="block text-gray-300 mb-3 text-sm">您目前是否擔任教學訓練計畫主持人？</label>
+                        <div class="flex gap-6">
+                            <label class="flex items-center gap-2 cursor-pointer group">
+                                <input type="radio" name="isHost" value="是" required class="w-4 h-4">
+                                <span class="group-hover:text-primary transition-colors">是</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer group">
+                                <input type="radio" name="isHost" value="否" class="w-4 h-4">
+                                <span class="group-hover:text-primary transition-colors">否</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 參與方式 -->
+                    <div class="bg-darkLayer/50 p-4 rounded-lg border border-white/5">
+                        <label class="block text-gray-300 mb-3 text-sm">您預計以何種方式參與？</label>
+                        <div class="flex gap-6">
+                            <label class="flex items-center gap-2 cursor-pointer group">
+                                <input type="radio" name="participation" value="實體參與" required class="w-4 h-4">
+                                <span class="group-hover:text-primary transition-colors">實體參與</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer group">
+                                <input type="radio" name="participation" value="線上參與" class="w-4 h-4">
+                                <span class="group-hover:text-primary transition-colors">線上參與</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第三部分：聯繫方式 -->
+                <div class="space-y-6 pt-6 border-t border-white/5">
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Email -->
+                        <div class="input-group relative">
+                            <input type="email" id="email" required placeholder=" " 
+                                class="w-full bg-transparent border border-accent/50 rounded px-4 py-3 outline-none focus:border-primary transition-colors text-light">
+                            <label for="email" class="absolute left-4 top-3 text-gray-500 transition-all pointer-events-none">Email</label>
+                        </div>
+                        
+                        <!-- Phone -->
+                        <div class="input-group relative">
+                            <input type="tel" id="phone" required placeholder=" " 
+                                class="w-full bg-transparent border border-accent/50 rounded px-4 py-3 outline-none focus:border-primary transition-colors text-light">
+                            <label for="phone" class="absolute left-4 top-3 text-gray-500 transition-all pointer-events-none">聯繫電話</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-6">
+                    <button id="submitBtn" type="submit" class="w-full bg-primary text-white font-bold py-4 rounded hover:bg-red-700 transition-all duration-300 transform hover:scale-[1.01] shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+                        <span>確認送出報名</span> <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-white/5">
+        <div class="container mx-auto px-6 text-center">
+            <h4 class="text-xl font-serif text-light mb-6">奇美醫院 教學部</h4>
+            <div class="flex flex-col md:flex-row justify-center gap-4 md:gap-12 text-gray-400 text-sm mb-8">
+                <p><i class="fas fa-user mr-2 text-primary"></i>聯絡人：陳大頭</p>
+                <p><i class="fas fa-phone mr-2 text-primary"></i>06-281-2811 分機 57112233</p>
+            </div>
+            <p class="text-gray-600 text-xs">© 2026 Chi Mei Medical Center. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/80 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <div class="bg-darkLayer border border-primary/30 p-8 rounded-2xl max-w-sm w-full mx-6 text-center transform scale-90 transition-transform duration-300">
+            <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-2xl mx-auto mb-4 shadow-lg shadow-primary/40">
+                <i class="fas fa-check"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">報名成功！</h3>
+            <p class="text-gray-400 mb-6">我們已收到您的資訊，期待您的參與。</p>
+            <button onclick="closeModal()" class="w-full py-3 border border-gray-600 hover:border-light text-gray-300 hover:text-white rounded transition-colors">
+                關閉
+            </button>
+        </div>
+    </div>
+
+    <script>
+        /* =========================================
+           請在此處貼上您的 Google Apps Script 網址
+           ========================================= */
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyW7u8u6nbtZkN-aO9TOUjO5bJrNiEDopul1Zj-rletabkD_L8u2_FwqRQPxWwcrPnZkQ/exec"; 
+
+        const form = document.getElementById('workshopForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const modal = document.getElementById('successModal');
+        const modalContent = modal.querySelector('div');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 檢查是否已設定網址
+            if (!SCRIPT_URL || SCRIPT_URL.includes("在此處")) {
+                alert("請先在 HTML 程式碼中設定 Google Apps Script 網址！");
+                return;
+            }
+
+            // 1. UI 變更為載入中
+            const originalBtnContent = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<div class="loading-spinner mr-2"></div> 傳送資料中...';
+            submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+
+            // 2. 收集資料
+            const formData = {
+                name: document.getElementById('name').value,
+                organization: document.getElementById('organization').value,
+                jobTitle: document.getElementById('jobTitle').value,
+                category: document.getElementById('category').value,
+                isHost: document.querySelector('input[name="isHost"]:checked')?.value || '',
+                participation: document.querySelector('input[name="participation"]:checked')?.value || '',
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value
+            };
+
+            // 3. 傳送資料到 Google Sheets
+            // 使用 text/plain 避免 CORS 預檢 (Preflight)
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify(formData),
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8",
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.result === 'success'){
+                    showSuccessModal();
+                    form.reset();
+                } else {
+                    alert("報名發生錯誤，請稍後再試。\n錯誤訊息: " + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("連線發生錯誤，請檢查網路狀態或聯繫管理員。");
+            })
+            .finally(() => {
+                // 4. 恢復按鈕狀態
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnContent;
+                submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+            });
+        });
+
+        function showSuccessModal() {
+            modal.classList.remove('hidden');
+            void modal.offsetWidth; // Trigger reflow
+            modal.classList.remove('opacity-0');
+            modalContent.classList.remove('scale-90');
+            modalContent.classList.add('scale-100');
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-90');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
