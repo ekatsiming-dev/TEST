@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>皮克敏活動任務規劃助手 Pro - Focus Mode</title>
-    <meta name="description" content="Pikmin Bloom Event Task Planner with Cinematic UI">
+    <title>皮克敏 4週年活動助手 - Celebration Mode</title>
+    <meta name="description" content="Pikmin Bloom 4th Anniversary Planner">
     
     <!-- React & Tailwind -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -24,22 +24,25 @@
                         display: ['"Outfit"', '"Noto Sans TC"', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#a94438', // 質感磚紅
-                        'primary-dark': '#8a3329',
-                        secondary: '#3a4a61', // 靜謐灰藍
-                        highlight: '#f4f1ea', // 暖調米色
-                        base: '#f8f7f4', // 暖白色背景
-                        text: '#3c3633', // 深棕灰
-                        success: '#5b8c5a', // 自然綠
+                        primary: '#f59e0b', // 慶典金黃 (Amber-500) - 呼應 4th Logo
+                        'primary-dark': '#d97706',
+                        secondary: '#4338ca', // 派對紫藍 (Indigo-700) - 呼應禮物盒與背景
+                        highlight: '#fef3c7', // 淺黃高亮
+                        base: '#f8fafc', // 雲朵白 (Slate-50)
+                        text: '#1e293b', // 深藍灰 (Slate-800)
+                        success: '#10b981', // 翡翠綠 (Emerald-500)
                     },
                     backgroundImage: {
-                        'cinematic-mask': 'linear-gradient(to top, rgba(20,20,20,0.9) 0%, rgba(60,54,51,0.4) 60%, rgba(0,0,0,0) 100%)',
+                        // 改為藍紫色系的漸層遮罩，更夢幻
+                        'cinematic-mask': 'linear-gradient(to top, rgba(30, 58, 138, 0.95) 0%, rgba(67, 56, 202, 0.4) 60%, rgba(255,255,255,0) 100%)',
+                        'party-gradient': 'linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)',
                     },
                     animation: {
                         'fade-in': 'fadeIn 0.6s ease-out',
                         'slide-up': 'slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
                         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'bloom': 'bloom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                        'float': 'float 6s ease-in-out infinite',
                     },
                     keyframes: {
                         fadeIn: {
@@ -54,11 +57,16 @@
                             '0%': { transform: 'scale(0.8)', opacity: '0.5' },
                             '50%': { transform: 'scale(1.1)' },
                             '100%': { transform: 'scale(1)', opacity: '1' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
                         }
                     },
                     boxShadow: {
                         'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
-                        'card': '0 10px 30px -5px rgba(0, 0, 0, 0.05)',
+                        'card': '0 10px 30px -5px rgba(67, 56, 202, 0.08)', // 帶紫色的陰影
+                        'glow': '0 0 15px rgba(245, 158, 11, 0.3)', // 金色光暈
                     }
                 }
             }
@@ -67,8 +75,8 @@
 
     <style>
         body {
-            background-color: #f8f7f4;
-            color: #3c3633;
+            background-color: #f8fafc;
+            color: #1e293b;
             -webkit-tap-highlight-color: transparent;
         }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -90,16 +98,27 @@
 
         /* Glassmorphism Utility */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.75);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
         .glass-panel-dark {
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 41, 59, 0.6); /* Slate-800 with opacity */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        /* Link Chain Line for Calculator - Updated to Festive Gold Gradient */
+        .link-chain {
+            position: absolute;
+            left: 24px;
+            top: 40px;
+            bottom: 40px;
+            width: 2px;
+            background: linear-gradient(to bottom, #e2e8f0 0%, #f59e0b 50%, #e2e8f0 100%);
+            z-index: 0;
         }
     </style>
 </head>
@@ -134,6 +153,8 @@
             Trash2: (props) => <Icon d={<><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></>} {...props} />,
             Sprout: (props) => <Icon d={<path d="M7 20h10M10 20c5.5-2.5.8-6.4 3-10M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 2.5-5.7 2.4-6.6-2.5 1.3-1.2 2.9-1.5 4.3-1.2"/>} {...props} />,
             Calendar: (props) => <Icon d={<><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></>} {...props} />,
+            Refresh: (props) => <Icon d={<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>} {...props} />,
+            Droplets: (props) => <Icon d={<><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.8-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.35"/></>} {...props} />,
         };
 
         const TRANSPORT_MODES = {
@@ -216,7 +237,6 @@
                     const now = new Date();
                     const currentYear = now.getFullYear();
                     const currentMonth = now.getMonth();
-                    // Get last millisecond of current month
                     const endDate = new Date(currentYear, currentMonth + 1, 0, 23, 59, 59);
                     const difference = endDate - now;
 
@@ -230,16 +250,16 @@
                 };
 
                 calculateTimeLeft();
-                const timer = setInterval(calculateTimeLeft, 60000); // Update every minute for better performance
+                const timer = setInterval(calculateTimeLeft, 60000); 
                 return () => clearInterval(timer);
             }, []);
 
             return (
-                <div className="glass-panel-dark px-3 py-1.5 rounded-full flex items-center gap-2">
-                    <Icons.Calendar className="w-3.5 h-3.5 text-white/80" />
-                    <div className="flex items-baseline gap-1 text-white/90">
-                        <span className="text-[10px] font-bold uppercase tracking-widest opacity-70 mr-1">ENDS IN</span>
-                        <span className="text-xs font-bold font-mono tracking-wide">
+                <div className="glass-panel-dark px-3 py-1.5 rounded-full flex items-center gap-2 border-primary/20 bg-black/40">
+                    <Icons.Calendar className="w-3.5 h-3.5 text-primary" />
+                    <div className="flex items-baseline gap-1 text-white">
+                        <span className="text-[10px] font-bold uppercase tracking-widest opacity-80 mr-1 text-primary-200">ENDS IN</span>
+                        <span className="text-xs font-bold font-mono tracking-wide text-white drop-shadow-sm">
                             {timeLeft.days}天 {timeLeft.hours}時 {timeLeft.minutes}分
                         </span>
                     </div>
@@ -249,20 +269,19 @@
 
         const HeroSection = ({ completedCount, totalCount, resetTasks }) => {
             return (
-                <div className="relative min-h-[420px] w-full overflow-hidden rounded-b-[2.5rem] shadow-2xl z-10 bg-secondary">
+                <div className="relative min-h-[420px] w-full overflow-hidden rounded-b-[2.5rem] shadow-2xl z-10 bg-secondary group">
                     <img 
-                        src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1932&auto=format&fit=crop"
-                        alt="Pikmin Garden"
-                        className="absolute inset-0 w-full h-full object-cover opacity-90"
+                        src="https://lh3.googleusercontent.com/RWn7F4xsRiOAKoCjgOSmXpoQ8w4aFIpHNKV4q78kkQyYzOO3rx03EudVIftEJXQFffkeq52nRYnexklX9SLJQ26-cP2VFTnop5_zdn8=s000"
+                        alt="Pikmin 4th Anniversary"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-[20s] ease-linear group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-cinematic-mask"></div>
                     
                     <div className="absolute top-0 left-0 w-full p-6 flex justify-between items-start z-20">
-                         {/* Updated Countdown Timer */}
                          <CountdownTimer />
                          <button 
                             onClick={resetTasks}
-                            className="p-3 bg-black/30 hover:bg-black/50 backdrop-blur-md rounded-full text-white/70 hover:text-white transition-all border border-white/10"
+                            className="p-3 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-white/90 hover:text-white transition-all border border-white/20 shadow-lg"
                         >
                             <Icons.Trash2 className="w-5 h-5" />
                         </button>
@@ -271,30 +290,32 @@
                     <div className="absolute bottom-0 left-0 w-full p-8 text-white pb-12">
                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                             <div className="animate-slide-up">
-                                <div className="flex items-center gap-2 mb-3 opacity-80">
-                                    <Icons.Leaf className="w-5 h-5 text-primary-300" />
-                                    <span className="text-sm font-medium tracking-[0.2em] uppercase text-highlight/80">Task Planner</span>
+                                <div className="flex items-center gap-2 mb-3 opacity-90">
+                                    <div className="bg-primary p-1 rounded-full animate-pulse-slow">
+                                        <Icons.Leaf className="w-4 h-4 text-white" />
+                                    </div>
+                                    <span className="text-sm font-bold tracking-[0.2em] uppercase text-primary-100 drop-shadow-md">4th Anniversary</span>
                                 </div>
-                                <h1 className="text-4xl md:text-5xl font-extrabold font-display leading-[1.1] drop-shadow-lg tracking-tight">
-                                    探索。<br/>
-                                    <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-orange-300">綻放</span>你的旅程
+                                <h1 className="text-4xl md:text-5xl font-extrabold font-display leading-[1.1] drop-shadow-xl tracking-tight text-white">
+                                    歡慶。<br/>
+                                    <span className="bg-clip-text text-transparent bg-party-gradient">繽紛</span>你的旅程
                                 </h1>
                             </div>
 
-                            <div className="glass-panel-dark p-5 rounded-2xl border border-white/10 shadow-xl backdrop-blur-md min-w-[140px] animate-slide-up" style={{animationDelay: '0.1s'}}>
+                            <div className="glass-panel-dark p-5 rounded-2xl border border-white/20 shadow-xl backdrop-blur-xl min-w-[140px] animate-slide-up" style={{animationDelay: '0.1s'}}>
                                 <div className="flex justify-between items-end mb-1">
-                                    <span className="text-xs text-gray-300 font-medium uppercase">Progress</span>
+                                    <span className="text-xs text-blue-200 font-medium uppercase">Progress</span>
                                     <span className="text-xs text-primary font-bold">{Math.round((completedCount/totalCount)*100)}%</span>
                                 </div>
                                 <div className="flex items-baseline gap-1">
-                                    <span className="text-4xl font-bold text-white font-display tracking-tight">
+                                    <span className="text-4xl font-bold text-white font-display tracking-tight drop-shadow-sm">
                                         {completedCount}
                                     </span>
-                                    <span className="text-lg text-white/40 font-medium">/{totalCount}</span>
+                                    <span className="text-lg text-white/50 font-medium">/{totalCount}</span>
                                 </div>
-                                <div className="h-1.5 w-full bg-white/10 rounded-full mt-3 overflow-hidden">
+                                <div className="h-2 w-full bg-white/10 rounded-full mt-3 overflow-hidden border border-white/5">
                                     <div 
-                                        className="h-full bg-gradient-to-r from-primary to-orange-400 transition-all duration-1000 ease-out"
+                                        className="h-full bg-party-gradient transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(245,158,11,0.5)]"
                                         style={{ width: `${(completedCount/totalCount)*100}%` }}
                                     ></div>
                                 </div>
@@ -314,8 +335,8 @@
                 <div className={`relative overflow-hidden transition-all duration-500 ease-out ${
                     isActive 
                     ? 'bg-white shadow-card scale-[1.02] z-10 rounded-2xl border-l-4 border-primary' 
-                    : 'bg-white/60 border border-transparent scale-100 opacity-90 rounded-xl'
-                } ${isCompleted ? 'opacity-70 grayscale-[0.5]' : ''}`}>
+                    : 'bg-white/80 border border-transparent scale-100 opacity-90 rounded-xl hover:bg-white'
+                } ${isCompleted ? 'opacity-70 grayscale-[0.3]' : ''}`}>
                     
                     <div 
                         onClick={onToggleExpand}
@@ -333,16 +354,16 @@
                             <div className="flex items-center gap-4">
                                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm shadow-sm transition-all duration-500 ${
                                     isCompleted ? 'bg-success text-white' : 
-                                    isActive ? 'bg-primary text-white rotate-3' : 
-                                    'bg-gray-100 text-gray-400'
+                                    isActive ? 'bg-primary text-white rotate-3 shadow-glow' : 
+                                    'bg-slate-100 text-slate-400'
                                 }`}>
                                     {isCompleted ? <Icons.CheckCircle2 className="w-6 h-6 animate-bloom" /> : stage.id}
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className={`font-bold text-lg tracking-tight ${isActive ? 'text-text' : 'text-text/70'}`}>
+                                    <span className={`font-bold text-lg tracking-tight ${isActive ? 'text-slate-800' : 'text-slate-600'}`}>
                                         {stage.title}
                                     </span>
-                                    <span className="text-xs font-medium text-text/40 flex items-center gap-1">
+                                    <span className="text-xs font-medium text-slate-400 flex items-center gap-1">
                                         {isCompleted 
                                             ? <span className="text-success font-bold">任務完成</span> 
                                             : `進度: ${stageCompletedCount}/${stageTaskCount}`
@@ -350,11 +371,11 @@
                                     </span>
                                 </div>
                             </div>
-                            <Icons.ChevronDown className={`w-5 h-5 text-gray-300 transition-transform duration-300 ${expanded ? 'rotate-180 text-primary' : ''}`} />
+                            <Icons.ChevronDown className={`w-5 h-5 text-slate-300 transition-transform duration-300 ${expanded ? 'rotate-180 text-primary' : ''}`} />
                         </div>
                     </div>
 
-                    <div className={`accordion-content bg-gray-50/50 ${expanded ? 'open' : ''}`}>
+                    <div className={`accordion-content bg-slate-50/50 ${expanded ? 'open' : ''}`}>
                         <div className="p-3 space-y-2">
                             {stage.tasks.map((task) => {
                                 const isTaskDone = !!completedTasks[task.id];
@@ -372,20 +393,20 @@
                                         onClick={() => toggleTask(task.id)}
                                         className={`group relative p-4 rounded-xl border transition-all cursor-pointer flex items-start gap-4 active:scale-[0.98] duration-200 ${
                                             isTaskDone 
-                                            ? 'bg-gray-100/50 border-transparent' 
-                                            : 'bg-white border-gray-100 hover:border-primary/20 shadow-sm hover:shadow-md'
+                                            ? 'bg-slate-100/50 border-transparent' 
+                                            : 'bg-white border-slate-100 hover:border-primary/30 shadow-sm hover:shadow-md'
                                         }`}
                                     >
                                         <div className={`mt-0.5 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
                                             isTaskDone 
                                             ? 'border-success bg-success scale-110' 
-                                            : 'border-gray-200 group-hover:border-primary/50 bg-white'
+                                            : 'border-slate-200 group-hover:border-primary/50 bg-white'
                                         }`}>
                                             <Icons.CheckCircle2 className={`w-4 h-4 text-white transition-all duration-300 ${isTaskDone ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`} />
                                         </div>
 
                                         <div className="flex-1">
-                                            <p className={`font-medium text-[15px] transition-all ${isTaskDone ? 'text-gray-400 line-through' : 'text-text'}`}>
+                                            <p className={`font-medium text-[15px] transition-all ${isTaskDone ? 'text-slate-400 line-through' : 'text-slate-700'}`}>
                                                 {task.text}
                                             </p>
                                             
@@ -395,7 +416,7 @@
                                                         <Icons.Flower className="w-3 h-3 mr-1" />
                                                         需 {reqPetals} 花瓣
                                                     </span>
-                                                    <span className="inline-flex items-center px-2 py-1 rounded-md bg-blue-50 text-blue-600 text-xs font-bold border border-blue-100">
+                                                    <span className="inline-flex items-center px-2 py-1 rounded-md bg-indigo-50 text-indigo-600 text-xs font-bold border border-indigo-100">
                                                         <Icons.Timer className="w-3 h-3 mr-1" />
                                                         約 {estTime} 分鐘
                                                     </span>
@@ -408,8 +429,8 @@
 
                             {isActive && stageNeeds && Object.keys(stageNeeds).length > 0 && (
                                 <div className="mt-4 mb-2 animate-fade-in">
-                                    <div className="bg-white rounded-xl p-5 border border-primary/10 shadow-[0_4px_20px_-5px_rgba(169,68,56,0.15)]">
-                                        <h3 className="text-xs font-bold text-primary mb-4 flex items-center uppercase tracking-wider opacity-80 border-b border-gray-100 pb-2">
+                                    <div className="bg-white rounded-xl p-5 border border-primary/10 shadow-[0_4px_20px_-5px_rgba(245,158,11,0.15)]">
+                                        <h3 className="text-xs font-bold text-primary mb-4 flex items-center uppercase tracking-wider opacity-80 border-b border-slate-100 pb-2">
                                             <Icons.Sprout className="w-4 h-4 mr-2" />
                                             總計剩餘需求 (含後續關卡)
                                         </h3>
@@ -417,14 +438,14 @@
                                             {Object.entries(stageNeeds).map(([flower, amount]) => (
                                                 <div key={flower} className="flex justify-between items-center group">
                                                     <div className="flex items-center">
-                                                        <div className="w-1.5 h-1.5 rounded-full bg-orange-300 mr-2.5 group-hover:scale-150 transition-transform"></div>
-                                                        <span className="text-sm text-text/80 font-medium">{flower}</span>
+                                                        <div className="w-1.5 h-1.5 rounded-full bg-primary mr-2.5 group-hover:scale-150 transition-transform shadow-glow"></div>
+                                                        <span className="text-sm text-slate-700 font-medium">{flower}</span>
                                                     </div>
                                                     <div className="text-right">
                                                         <span className="block font-bold text-primary text-sm">
                                                             {amount} 朵
                                                         </span>
-                                                        <span className="block text-[10px] text-gray-400">
+                                                        <span className="block text-[10px] text-slate-400">
                                                             約 {Math.ceil(amount / flowerPerPetal)} 花瓣
                                                         </span>
                                                     </div>
@@ -444,25 +465,25 @@
         const SettingsBar = ({ squadSize, setSquadSize, transport, setTransport }) => (
             <div className="mx-5 -mt-10 relative z-30 glass-panel rounded-2xl shadow-glass p-5 flex flex-col gap-4 animate-slide-up">
                 <div className="flex justify-between items-center">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider flex items-center gap-1">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1">
                         <Icons.Settings className="w-3 h-3" /> 隊伍規模
                     </label>
-                    <div className="flex items-center bg-gray-100/50 rounded-lg p-1 border border-gray-200/50">
+                    <div className="flex items-center bg-slate-100/50 rounded-lg p-1 border border-slate-200/50">
                          <button 
                             onClick={() => setSquadSize(Math.max(10, squadSize - 5))}
-                            className="w-8 h-8 rounded-md hover:bg-white text-gray-500 hover:text-primary hover:shadow-sm flex items-center justify-center transition-all"
+                            className="w-8 h-8 rounded-md hover:bg-white text-slate-500 hover:text-primary hover:shadow-sm flex items-center justify-center transition-all"
                         ><Icons.ChevronDown className="w-4 h-4 rotate-90" /></button>
                         <span className="font-bold text-primary w-14 text-center text-lg font-display">{squadSize}</span>
                         <button 
                             onClick={() => setSquadSize(Math.min(40, squadSize + 5))}
-                            className="w-8 h-8 rounded-md hover:bg-white text-gray-500 hover:text-primary hover:shadow-sm flex items-center justify-center transition-all"
+                            className="w-8 h-8 rounded-md hover:bg-white text-slate-500 hover:text-primary hover:shadow-sm flex items-center justify-center transition-all"
                         ><Icons.ChevronDown className="w-4 h-4 -rotate-90" /></button>
                     </div>
                 </div>
-                <div className="h-px bg-gray-200/50 w-full"></div>
+                <div className="h-px bg-slate-200/50 w-full"></div>
                 <div className="flex justify-between items-center">
-                    <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">移動方式</label>
-                    <div className="flex bg-gray-100/50 p-1 rounded-xl border border-gray-200/50">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">移動方式</label>
+                    <div className="flex bg-slate-100/50 p-1 rounded-xl border border-slate-200/50">
                         {Object.entries(TRANSPORT_MODES).map(([key, mode]) => {
                             const ModeIcon = key === 'walk' ? Icons.Footprints : key === 'bike' ? Icons.Bike : Icons.Bus;
                             const isSelected = transport === key;
@@ -470,7 +491,7 @@
                                 <button
                                     key={key}
                                     onClick={() => setTransport(key)}
-                                    className={`px-3 py-2 rounded-lg transition-all flex items-center gap-1.5 ${isSelected ? 'bg-white text-primary shadow-sm font-bold' : 'text-gray-400 hover:text-gray-600'}`}
+                                    className={`px-3 py-2 rounded-lg transition-all flex items-center gap-1.5 ${isSelected ? 'bg-white text-primary shadow-sm font-bold ring-1 ring-black/5' : 'text-slate-400 hover:text-slate-600'}`}
                                 >
                                     <ModeIcon className="w-4 h-4" />
                                     <span className="text-xs">{mode.label}</span>
@@ -493,9 +514,46 @@
             useEffect(() => { localStorage.setItem('pikmin_transport', transport); }, [transport]);
             useEffect(() => { localStorage.setItem('pikmin_tasks', JSON.stringify(completedTasks)); }, [completedTasks]);
 
-            const [calcFlowerInput, setCalcFlowerInput] = useState(500);
-            // Updated: Renamed state for clarity (Input is now Time in Minutes)
-            const [calcTimeInput, setCalcTimeInput] = useState(30); 
+            // --- Omni Calculator State ---
+            const [calcValues, setCalcValues] = useState({
+                flowers: 1000,
+                petals: 0,
+                minutes: 0
+            });
+
+            const consumptionRate = getConsumptionRate(squadSize);
+            const flowerPerPetal = TRANSPORT_MODES[transport].density;
+
+            useEffect(() => {
+                const p = Math.ceil(calcValues.flowers / flowerPerPetal);
+                const t = Math.ceil(p / consumptionRate);
+                setCalcValues(prev => ({
+                    ...prev,
+                    petals: p,
+                    minutes: t
+                }));
+            }, [squadSize, transport]);
+
+            const handleFlowersChange = (e) => {
+                const val = Math.max(0, parseInt(e.target.value) || 0);
+                const p = Math.ceil(val / flowerPerPetal);
+                const t = Math.ceil(p / consumptionRate);
+                setCalcValues({ flowers: val, petals: p, minutes: t });
+            };
+
+            const handlePetalsChange = (e) => {
+                const val = Math.max(0, parseInt(e.target.value) || 0);
+                const f = val * flowerPerPetal;
+                const t = Math.ceil(val / consumptionRate);
+                setCalcValues({ flowers: f, petals: val, minutes: t });
+            };
+
+            const handleMinutesChange = (e) => {
+                const val = Math.max(0, parseInt(e.target.value) || 0);
+                const p = Math.ceil(val * consumptionRate);
+                const f = p * flowerPerPetal;
+                setCalcValues({ flowers: f, petals: p, minutes: val });
+            };
 
             const toggleTask = (taskId) => {
                 setCompletedTasks(prev => ({ ...prev, [taskId]: !prev[taskId] }));
@@ -507,9 +565,6 @@
                     setExpandedStages({});
                 }
             };
-
-            const consumptionRate = getConsumptionRate(squadSize);
-            const flowerPerPetal = TRANSPORT_MODES[transport].density;
 
             const analysis = useMemo(() => {
                 let totalTasks = 0, doneTasks = 0, activeStageId = 1, foundActive = false;
@@ -539,7 +594,6 @@
                 return { totalTasks, doneTasks, activeStageId, currentStageNeeds, totalNeeds };
             }, [completedTasks]);
 
-            // --- Auto-Collapse Logic ---
             useEffect(() => {
                 if(analysis.activeStageId <= STAGE_DATA.length) {
                     setExpandedStages({ [analysis.activeStageId]: true });
@@ -570,8 +624,8 @@
                         {activeTab === 'tracker' && (
                             <div className="space-y-4 animate-fade-in">
                                 <div className="flex items-center justify-between px-2 mb-2">
-                                    <h2 className="text-lg font-bold text-text/80 font-display">Mission Log</h2>
-                                    <span className="text-xs font-bold px-2 py-1 bg-gray-200 rounded text-gray-500">2025/11 Event</span>
+                                    <h2 className="text-lg font-bold text-slate-700 font-display">Mission Log</h2>
+                                    <span className="text-xs font-bold px-2 py-1 bg-yellow-100 text-yellow-700 rounded border border-yellow-200 shadow-sm">2025/11 Event</span>
                                 </div>
                                 {STAGE_DATA.map(stage => {
                                     const isCompleted = stage.tasks.every(t => completedTasks[t.id]);
@@ -588,7 +642,6 @@
                                             isLocked={isLocked}
                                             expanded={expandedStages[stage.id]}
                                             onToggleExpand={() => toggleStage(stage.id)}
-                                            // Change from currentStageNeeds to totalNeeds
                                             stageNeeds={isActive ? analysis.totalNeeds : null}
                                             flowerPerPetal={flowerPerPetal}
                                             consumptionRate={consumptionRate}
@@ -600,83 +653,108 @@
 
                         {activeTab === 'calc' && (
                             <div className="animate-fade-in space-y-5">
-                                <div className="bg-white p-6 rounded-2xl shadow-card border border-gray-100">
-                                    <div className="flex items-center gap-3 mb-6 border-b border-gray-100 pb-4">
+                                <div className="bg-white p-6 rounded-2xl shadow-card border border-slate-100 relative overflow-hidden">
+                                    <div className="flex items-center gap-3 mb-6 border-b border-slate-100 pb-4 relative z-10">
                                         <div className="bg-primary/10 p-2 rounded-lg text-primary">
                                             <Icons.Calculator className="w-6 h-6"/>
                                         </div>
                                         <div>
-                                            <h2 className="text-xl font-bold text-text font-display">工具計算機</h2>
-                                            <p className="text-xs text-gray-400">快速計算花瓣與時間</p>
+                                            <h2 className="text-xl font-bold text-slate-800 font-display">三方連動計算機</h2>
+                                            <p className="text-xs text-slate-400">輸入任一數值，自動推算其他兩項</p>
                                         </div>
                                     </div>
                                     
-                                    <div className="space-y-8">
-                                        {/* Calc Block 1: Target Flowers -> Required Petals */}
-                                        <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                                            <label className="text-sm font-bold text-text mb-2 block">目標花朵數</label>
-                                            <input
-                                                type="number"
-                                                value={calcFlowerInput}
-                                                onChange={(e) => setCalcFlowerInput(Number(e.target.value))}
-                                                className="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2 text-lg font-bold text-text focus:outline-none focus:border-primary mb-4 transition-all"
-                                                placeholder="輸入目標數量"
-                                            />
-                                            <div className="flex items-center rounded-lg border border-gray-200 p-3 bg-gray-50/50">
-                                                <div className="bg-primary/10 p-2 rounded-full mr-3 text-primary">
+                                    {/* Visual Link Chain - Updated */}
+                                    <div className="link-chain rounded-full opacity-50"></div>
+
+                                    <div className="space-y-6 relative z-10 pl-6">
+                                        {/* Input 1: Flowers */}
+                                        <div className="relative">
+                                            <div className="absolute -left-[33px] top-1/2 -translate-y-1/2 bg-white border-2 border-primary/20 w-4 h-4 rounded-full z-20 shadow-sm"></div>
+                                            <label className="text-xs font-bold text-slate-400 mb-1 block uppercase tracking-wider pl-1">目標花朵 (Flowers)</label>
+                                            <div className="bg-white rounded-xl border border-slate-200 p-1 flex items-center shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+                                                <div className="p-3 bg-orange-50 rounded-lg text-orange-500 mr-2">
                                                     <Icons.Flower className="w-5 h-5" />
                                                 </div>
-                                                <div>
-                                                    <p className="text-xs text-text/60 font-bold uppercase tracking-wider">需花瓣數</p>
-                                                    <p className="text-xl font-bold text-primary font-display">
-                                                        {Math.ceil(calcFlowerInput / flowerPerPetal)}
-                                                    </p>
-                                                </div>
+                                                <input 
+                                                    type="number" 
+                                                    min="0"
+                                                    value={calcValues.flowers}
+                                                    onChange={handleFlowersChange}
+                                                    className="w-full bg-transparent text-xl font-bold text-slate-800 focus:outline-none"
+                                                    placeholder="0"
+                                                />
+                                                <span className="text-xs font-bold text-slate-300 pr-4">朵</span>
                                             </div>
                                         </div>
 
-                                        {/* Calc Block 2: Travel Time -> Consumed Petals (Fixed as requested) */}
-                                        <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                                            <label className="text-sm font-bold text-text mb-2 block">路程時間 (分鐘)</label>
-                                            <input
-                                                type="number"
-                                                value={calcTimeInput}
-                                                onChange={(e) => setCalcTimeInput(Number(e.target.value))}
-                                                className="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2 text-lg font-bold text-text focus:outline-none focus:border-primary mb-4 transition-all"
-                                                placeholder="輸入時間"
-                                            />
-                                            <div className="flex items-center rounded-lg border border-gray-200 p-3 bg-gray-50/50">
-                                                <div className="bg-secondary/10 p-2 rounded-full mr-3 text-secondary">
-                                                    <Icons.Leaf className="w-5 h-5" />
+                                        {/* Input 2: Petals */}
+                                        <div className="relative">
+                                             <div className="absolute -left-[33px] top-1/2 -translate-y-1/2 bg-white border-2 border-primary/20 w-4 h-4 rounded-full z-20 shadow-sm"></div>
+                                            <label className="text-xs font-bold text-slate-400 mb-1 block uppercase tracking-wider pl-1">消耗花瓣 (Petals)</label>
+                                            <div className="bg-white rounded-xl border border-slate-200 p-1 flex items-center shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+                                                <div className="p-3 bg-red-50 rounded-lg text-primary mr-2">
+                                                    <Icons.Droplets className="w-5 h-5" />
                                                 </div>
-                                                <div>
-                                                    <p className="text-xs text-text/60 font-bold uppercase tracking-wider">燃燒花瓣數</p>
-                                                    <p className="text-xl font-bold text-secondary font-display">
-                                                        {Math.ceil(calcTimeInput * consumptionRate)}
-                                                    </p>
-                                                </div>
+                                                <input 
+                                                    type="number" 
+                                                    min="0"
+                                                    value={calcValues.petals}
+                                                    onChange={handlePetalsChange}
+                                                    className="w-full bg-transparent text-xl font-bold text-slate-800 focus:outline-none"
+                                                    placeholder="0"
+                                                />
+                                                <span className="text-xs font-bold text-slate-300 pr-4">片</span>
                                             </div>
                                         </div>
-                                        
-                                        <div className="text-center text-xs text-gray-400 pt-2">
-                                            計算基準: {squadSize}隻皮克敏 | {TRANSPORT_MODES[transport].label}
+
+                                        {/* Input 3: Time */}
+                                        <div className="relative">
+                                             <div className="absolute -left-[33px] top-1/2 -translate-y-1/2 bg-white border-2 border-primary/20 w-4 h-4 rounded-full z-20 shadow-sm"></div>
+                                            <label className="text-xs font-bold text-slate-400 mb-1 block uppercase tracking-wider pl-1">所需時間 (Time)</label>
+                                            <div className="bg-white rounded-xl border border-slate-200 p-1 flex items-center shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+                                                <div className="p-3 bg-indigo-50 rounded-lg text-indigo-500 mr-2">
+                                                    <Icons.Timer className="w-5 h-5" />
+                                                </div>
+                                                <input 
+                                                    type="number" 
+                                                    min="0"
+                                                    value={calcValues.minutes}
+                                                    onChange={handleMinutesChange}
+                                                    className="w-full bg-transparent text-xl font-bold text-slate-800 focus:outline-none"
+                                                    placeholder="0"
+                                                />
+                                                <span className="text-xs font-bold text-slate-300 pr-4">分</span>
+                                            </div>
                                         </div>
+                                    </div>
+                                    
+                                    <div className="mt-6 pt-4 border-t border-slate-100 flex justify-between items-center">
+                                        <div className="text-xs text-slate-400">
+                                            當前配置: {squadSize}隻皮克敏 · {TRANSPORT_MODES[transport].label}
+                                        </div>
+                                        <button 
+                                            onClick={() => setCalcValues({flowers: 0, petals: 0, minutes: 0})}
+                                            className="text-xs font-bold text-primary hover:text-primary-dark flex items-center gap-1 bg-primary/5 px-2 py-1 rounded hover:bg-primary/10 transition-colors"
+                                        >
+                                            <Icons.Refresh className="w-3 h-3" /> 重置
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         )}
                     </main>
 
-                    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-white/80 backdrop-blur-xl border border-white/40 shadow-2xl rounded-full p-1.5 z-40">
+                    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-white/90 backdrop-blur-xl border border-white/50 shadow-2xl rounded-full p-1.5 z-40">
                         <div className="flex justify-between items-center h-14 relative">
-                            <div className={`absolute top-1.5 bottom-1.5 w-[48%] bg-primary rounded-full transition-all duration-300 ease-out ${
+                            <div className={`absolute top-1.5 bottom-1.5 w-[48%] bg-primary rounded-full transition-all duration-300 ease-out shadow-lg ${
                                 activeTab === 'calc' ? 'left-[50%]' : 'left-[2%]'
                             }`}></div>
 
                             <button 
                                 onClick={() => setActiveTab('tracker')}
                                 className={`flex items-center justify-center w-1/2 h-full space-x-2 rounded-full relative z-10 transition-colors ${
-                                    activeTab === 'tracker' ? 'text-white' : 'text-gray-400 hover:text-gray-600'
+                                    activeTab === 'tracker' ? 'text-white' : 'text-slate-400 hover:text-slate-600'
                                 }`}
                             >
                                 <Icons.ListTodo className="w-5 h-5" />
@@ -686,7 +764,7 @@
                             <button 
                                 onClick={() => setActiveTab('calc')}
                                 className={`flex items-center justify-center w-1/2 h-full space-x-2 rounded-full relative z-10 transition-colors ${
-                                    activeTab === 'calc' ? 'text-white' : 'text-gray-400 hover:text-gray-600'
+                                    activeTab === 'calc' ? 'text-white' : 'text-slate-400 hover:text-slate-600'
                                 }`}
                             >
                                 <Icons.Calculator className="w-5 h-5" />
@@ -698,7 +776,6 @@
             );
         };
 
-        // Use safe references to avoid null errors during mounting
         const container = document.getElementById('root');
         if (container) {
             const root = ReactDOM.createRoot(container);
